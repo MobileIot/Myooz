@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name='icon'>#7DCDC3</color>
     <color name='selector'>#ECB95C</color>
+    <color name='inactive'>#666666</color>
+    <color name='white'>#fff</color>
+
 </resources>
