@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Myooz</string>
+    <string name="title_place">Near Me</string>
+    <string name="title_popular">Popular</string>
+    <string name="title_thought">My Thoughts</string>
+    <string name="left_menu">Leftside Menu</string>
+    <string name="search">Search</string>
+</resources>
