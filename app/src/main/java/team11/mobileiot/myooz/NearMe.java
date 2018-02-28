@@ -1,8 +1,5 @@
 package team11.mobileiot.myooz;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,12 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +24,9 @@ import java.util.List;
 import team11.mobileiot.myooz.beacons.BeaconService;
 
 public class NearMe extends AppCompatActivity {
-    private BeaconService bs;
-
-    private RecyclerView recyclerView;
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-
+    private BeaconService bs;
+    private RecyclerView recyclerView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -75,11 +67,10 @@ public class NearMe extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         List<String> data = new ArrayList<>();
+        data.add("https://pi.tedcdn.com/r/tedideas.files.wordpress.com/2017/05/featured_art_heal_forests.jpg");
+        data.add("https://i.pinimg.com/736x/c8/45/d8/c845d8ddcbccf0c874eff927b4d754fe--vintage-nature-photography-travel-photography.jpg");
         data.add("https://images.metmuseum.org/CRDImages/cl/web-large/DP102839.jpg");
         data.add("https://images.metmuseum.org/CRDImages/ma/web-large/DP135156.jpg");
         data.add("https://images.metmuseum.org/CRDImages/ci/web-large/DT436.jpg");
