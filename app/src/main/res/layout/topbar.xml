@@ -5,25 +5,30 @@
 
     <Button
         android:id="@+id/leftButton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp" />
+        android:layout_alignTop="@+id/rightButton"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"/>
 
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
+        android:layout_toEndOf="@id/leftButton"
+        android:paddingLeft="30dp"
         android:textSize="8sp" />
 
     <Button
         android:id="@+id/rightButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp" />
+        android:padding="200dp"
+        android:layout_marginEnd="20dp" />
 </RelativeLayout>
