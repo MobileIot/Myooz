@@ -12,9 +12,9 @@
     <team11.mobileiot.myooz.TopBar
         android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
         android:layout_alignParentTop="true"
-        android:background="@color/icon"
+        android:background="@color/primary"
         android:visibility="visible"
         app:layout_heightPercent="8%"
         app:leftBackground="@color/left_menu_button"
@@ -36,13 +36,13 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="10%"
+        android:layout_height="56dp"
+        android:layout_below="@+id/recyclerview"
         android:background="?android:attr/windowBackground"
         app:itemBackground="@android:color/white"
         app:itemIconTint="@color/bottom_navigation_selector"
         app:itemTextColor="@color/bottom_navigation_selector"
-        app:menu="@menu/navigation"
-        android:layout_below="@+id/recyclerview"/>
+        app:layout_heightPercent="10%"
+        app:menu="@menu/navigation" />
 
 </android.support.percent.PercentRelativeLayout>
