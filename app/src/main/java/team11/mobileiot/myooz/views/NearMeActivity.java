@@ -1,4 +1,4 @@
-package team11.mobileiot.myooz;
+package team11.mobileiot.myooz.views;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -21,9 +21,10 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
 
-public class NearMe extends AppCompatActivity {
+public class NearMeActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private RecyclerView recyclerView;

@@ -1,4 +1,4 @@
-package team11.mobileiot.myooz;
+package team11.mobileiot.myooz.views;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

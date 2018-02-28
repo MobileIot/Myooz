@@ -7,9 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="team11.mobileiot.myooz.NearMe">
+    tools:context="team11.mobileiot.myooz.views.NearMeActivity">
 
-    <team11.mobileiot.myooz.TopBar
+    <team11.mobileiot.myooz.views.TopBar
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"

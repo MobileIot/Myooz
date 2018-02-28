@@ -1,4 +1,4 @@
-package team11.mobileiot.myooz;
+package team11.mobileiot.myooz.views;
 
 /**
  * Created by flora on 2/26/18.
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import team11.mobileiot.myooz.R;
 
 
 public class TopBar extends RelativeLayout {
