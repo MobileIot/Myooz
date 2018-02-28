@@ -9,4 +9,8 @@
     <string name="PER_DENY_TITLE">Functionality limited</string>
     <string name="PER_REQUEST_TITLE">Which item are you looking at?</string>
     <string name="PER_REQUEST_MSG">Myooz needs location access to show you the artworks around you.</string>
+    <string name="PER_BT_NA_TITLE">Bluetooth LE not available</string>
+    <string name="PER_BT_NA_MSG">Sorry, this device does not support Bluetooth LE.</string>
+    <string name="PER_BT_NE_TITLE">Bluetooth not enabled</string>
+    <string name="PER_BT_NE_MSG">Myooz needs Bluetooth access to show you the artworks around you. Please enable bluetooth in settings and restart this application.</string>
 </resources>

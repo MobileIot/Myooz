@@ -164,8 +164,8 @@ public class NearMe extends AppCompatActivity {
         try {
             if (!this.bs.checkAvailability()) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Bluetooth not enabled");
-                builder.setMessage("Please enable bluetooth in settings and restart this application.");
+                builder.setTitle(R.string.PER_BT_NE_TITLE);
+                builder.setMessage(R.string.PER_BT_NE_MSG);
                 builder.setPositiveButton(android.R.string.ok, null);
                 builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -177,8 +177,8 @@ public class NearMe extends AppCompatActivity {
             }
         } catch (RuntimeException e) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Bluetooth LE not available");
-            builder.setMessage("Sorry, this device does not support Bluetooth LE.");
+            builder.setTitle(R.string.PER_BT_NA_TITLE);
+            builder.setMessage(R.string.PER_BT_NA_MSG);
             builder.setPositiveButton(android.R.string.ok, null);
             builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
 

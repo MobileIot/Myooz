@@ -1,25 +1,19 @@
 package team11.mobileiot.myooz.beacons;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
-import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -30,6 +24,9 @@ import java.util.Collection;
 public class BeaconService implements BeaconConsumer {
     private BeaconManager beaconManager;
     private Context applicationContext;
+    private String lastConfirmedBeaconId;
+    private int confirmationCount = 0;
+    public static final int MIN_CONFIRMATION_COUNT = 1;
 
     public BeaconService(Context context) {
         this.applicationContext = context;
@@ -48,6 +45,37 @@ public class BeaconService implements BeaconConsumer {
         return this.beaconManager.checkAvailability();
     }
 
+    private void handleBeaconsUpdate(Collection<Beacon> beacons) {
+        Log.d("Meow", "Beacons count: " + beacons.size());
+
+        double minDistance = Integer.MAX_VALUE;
+        Beacon nearestBeacon = null;
+
+        for (Beacon beacon : beacons) {
+            double distance = beacon.getDistance();
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestBeacon = beacon;
+            }
+        }
+
+        if (nearestBeacon == null) return;
+
+        String beaconId = nearestBeacon.getBluetoothAddress();
+        if (nearestBeacon.getDistance() > 3) return;
+        if (beaconId.equals(this.lastConfirmedBeaconId)) {
+            this.confirmationCount += 1;
+            if (this.confirmationCount == MIN_CONFIRMATION_COUNT) {
+                // Confident about an nearest beacon update
+                Log.d("Meow", "Nearest Beacon (" + nearestBeacon.getBluetoothAddress()
+                        + ") is " + nearestBeacon.getDistance() + " meters away.");
+            }
+        } else {
+            this.lastConfirmedBeaconId = beaconId;
+            this.confirmationCount = 0;
+        }
+    }
+
     @Override
     public void onBeaconServiceConnect() {
         final Region anyRegion = new Region("AllRegion", null, null, null);
@@ -59,10 +87,9 @@ public class BeaconService implements BeaconConsumer {
             beaconManager.addRangeNotifier(new RangeNotifier() {
                 @Override
                 public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-                    if (beacons.size() > 0) {
-                        Log.d("Meow", "Beacons count: " + beacons.size());
-                        Log.d("Meow", "The first beacon I see is about " + beacons.iterator().next().getDistance() + " meters away.");
-                    }
+                    if (beacons.size() == 0) return;
+
+                    handleBeaconsUpdate(beacons);
                 }
             });
         } catch (RemoteException e) {
