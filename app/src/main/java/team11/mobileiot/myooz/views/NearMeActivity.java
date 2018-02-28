@@ -1,5 +1,4 @@
-package team11.mobileiot.myooz;
-
+package team11.mobileiot.myooz.views;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -22,16 +21,13 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
-import team11.mobileiot.myooz.views.Interval;
-import team11.mobileiot.myooz.views.RecyclerAdapter;
-import team11.mobileiot.myooz.views.TopBar;
 
-public class NearMe extends AppCompatActivity {
+public class NearMeActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private RecyclerView recyclerView;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -39,7 +35,6 @@ public class NearMe extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_place:
-
                     return true;
                 case R.id.navigation_popular:
                     return true;
@@ -87,9 +82,10 @@ public class NearMe extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         RecyclerAdapter adapter = new RecyclerAdapter(data, getApplicationContext());
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(30);
+        Interval interval = new Interval(4);
         recyclerView.addItemDecoration(interval);
         recyclerView.setAdapter(adapter);
+
         this.requestLocationAccess();
     }
 

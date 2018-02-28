@@ -1,11 +1,10 @@
-package team11.mobileiot.myooz;
+package team11.mobileiot.myooz.views;
 
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.Collection;
 import java.util.List;
+
+import team11.mobileiot.myooz.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private List<String> list = null;
@@ -71,5 +72,4 @@ class RecyclerViewHolder extends RecyclerView.ViewHolder {
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
     }
-
 }
