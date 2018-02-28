@@ -34,7 +34,6 @@ public class NearMe extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_place:
-
                     return true;
                 case R.id.navigation_popular:
                     return true;
@@ -82,7 +81,7 @@ public class NearMe extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         RecyclerAdapter adapter = new RecyclerAdapter(data, getApplicationContext());
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(30);
+        Interval interval = new Interval(4);
         recyclerView.addItemDecoration(interval);
         recyclerView.setAdapter(adapter);
 
