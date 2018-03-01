@@ -19,14 +19,24 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 
+import java.util.ArrayList;
+
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
+import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.ArtworkCollection;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
+    private ArtworkCollection artworkCollection;
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -77,7 +87,10 @@ public class MainActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.main_container,fragment);
         fragmentTransaction.commit();
+
         this.requestLocationAccess();
+        this.artworkCollection = new ArtworkCollection();
+        new ArtworkCollectionRetrievalTask(this).execute();
     }
 
     @Override
@@ -181,5 +194,33 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.bs = null;
         }
+    }
+
+    public void updateImageFlow() {
+        this.artworkCollection.getArtworks(0, 10);
+
+//        List<String> data = new ArrayList<>();
+//        data.add("https://pi.tedcdn.com/r/tedideas.files.wordpress.com/2017/05/featured_art_heal_forests.jpg");
+//        data.add("https://i.pinimg.com/736x/c8/45/d8/c845d8ddcbccf0c874eff927b4d754fe--vintage-nature-photography-travel-photography.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/cl/web-large/DP102839.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/ma/web-large/DP135156.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/ci/web-large/DT436.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/ao/web-large/DT1276.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/aa/web-large/37.131.4_002Sept2014.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/ep/web-large/DP287624.jpg");
+//        data.add("https://images.metmuseum.org/CRDImages/ma/web-large/DT1432.jpg");
+
+//        recyclerView = findViewById(R.id.recyclerview);
+//        RecyclerAdapter adapter = new RecyclerAdapter(data, getApplicationContext());
+//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+//        Interval interval = new Interval(4);
+//        recyclerView.addItemDecoration(interval);
+//        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onArtworkRetrievalTaskComplete(ArrayList<Artwork> artworks) {
+        this.artworkCollection.setArtworks(artworks);
+        this.updateImageFlow();
     }
 }

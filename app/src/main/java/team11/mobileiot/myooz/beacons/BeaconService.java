@@ -13,7 +13,6 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -69,6 +68,7 @@ public class BeaconService implements BeaconConsumer {
                 // Confident about an nearest beacon update
                 Log.d("Meow", "Nearest Beacon (" + nearestBeacon.getBluetoothAddress()
                         + ") is " + nearestBeacon.getDistance() + " meters away.");
+//                MainActivity.updateImageFlow();
             }
         } else {
             this.lastConfirmedBeaconId = beaconId;
