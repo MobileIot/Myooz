@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     private FragmentTransaction fragmentTransaction;
     private ArtworkCollection artworkCollection;
     private int lastArea;
-    private boolean needBeaconUpdate = true;
+    public static boolean needBeaconUpdate = true;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     public void updateImageFlow() {
         if (!needBeaconUpdate) return;
 
-        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 10);
+        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 15);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("artworks", artworks);
 

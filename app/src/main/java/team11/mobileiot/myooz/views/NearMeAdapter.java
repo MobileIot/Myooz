@@ -81,6 +81,7 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent intent = new Intent(simpleDraweeView.getContext(), InfoActivity.class);
                 intent.putExtra("artwork", artwork);
+                MainActivity.needBeaconUpdate = false;
                 simpleDraweeView.getContext().startActivity(intent);
             }
         });
