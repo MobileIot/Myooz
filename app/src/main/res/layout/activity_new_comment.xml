@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    tools:context="team11.mobileiot.myooz.views.NewCommentActivity">
+
+    <team11.mobileiot.myooz.views.NewCommentTopBar
+        android:id="@+id/new_comment_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:background="#FAFAFA"
+        android:visibility="visible"
+        app:leftBackground="@color/left_close_button"
+        app:rightBackground="@color/right_send_button" >
+
+    </team11.mobileiot.myooz.views.NewCommentTopBar>
+
+    <EditText
+        android:gravity="top"
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:fontFamily="@font/assistant"
+        android:inputType="textMultiLine"
+        android:padding="24dp"
+        android:text="One of my favorite museum. It is so big, you could spend there days. It has a nice cafe to sit down and relax. A place where you need to go back as you can not take it all in in one time!  "
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/new_comment_topbar" />
+</android.support.constraint.ConstraintLayout>
