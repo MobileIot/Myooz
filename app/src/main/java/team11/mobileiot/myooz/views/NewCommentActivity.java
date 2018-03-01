@@ -11,5 +11,18 @@ public class NewCommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_comment);
+
+        NewCommentTopBar topbar = (NewCommentTopBar) findViewById(R.id.new_comment_topbar);
+        topbar.setOnLeftAndRightClickListener(new NewCommentTopBar.OnLeftAndRightClickListener() {
+            @Override
+            public void OnLeftButtonClick() {
+                finish();
+            }
+
+            @Override
+            public void OnRightButtonClick() {
+                finish();
+            }
+        });
     }
 }
