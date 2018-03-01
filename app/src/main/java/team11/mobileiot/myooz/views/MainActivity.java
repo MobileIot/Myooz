@@ -1,5 +1,4 @@
-package team11.mobileiot.myooz;
-
+package team11.mobileiot.myooz.views;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -10,6 +9,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -22,16 +24,14 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
-import team11.mobileiot.myooz.views.Interval;
-import team11.mobileiot.myooz.views.RecyclerAdapter;
-import team11.mobileiot.myooz.views.TopBar;
 
-public class NearMe extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
-    private RecyclerView recyclerView;
-
+    private Fragment fragment;
+    private FragmentTransaction fragmentTransaction;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -39,29 +39,33 @@ public class NearMe extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_place:
-
-                    return true;
+                    fragment = new FragmentNearMe();
+                    break;
                 case R.id.navigation_popular:
-                    return true;
+                    fragment = new FragmentPopular();
+                    break;
                 case R.id.navigation_thought:
-                    return true;
+                    break;
+                default:
+                    return false;
             }
-            return false;
+            fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container,fragment);
+            fragmentTransaction.commit();
+            return true;
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
         setContentView(R.layout.activity_near_me);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
-
             @Override
             public void OnLeftButtonClick() {
                 Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
@@ -73,23 +77,10 @@ public class NearMe extends AppCompatActivity {
             }
         });
 
-        List<String> data = new ArrayList<>();
-        data.add("https://pi.tedcdn.com/r/tedideas.files.wordpress.com/2017/05/featured_art_heal_forests.jpg");
-        data.add("https://i.pinimg.com/736x/c8/45/d8/c845d8ddcbccf0c874eff927b4d754fe--vintage-nature-photography-travel-photography.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/cl/web-large/DP102839.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/ma/web-large/DP135156.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/ci/web-large/DT436.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/ao/web-large/DT1276.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/aa/web-large/37.131.4_002Sept2014.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/ep/web-large/DP287624.jpg");
-        data.add("https://images.metmuseum.org/CRDImages/ma/web-large/DT1432.jpg");
-
-        recyclerView = findViewById(R.id.recyclerview);
-        RecyclerAdapter adapter = new RecyclerAdapter(data, getApplicationContext());
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(30);
-        recyclerView.addItemDecoration(interval);
-        recyclerView.setAdapter(adapter);
+        fragment=new FragmentNearMe();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container,fragment);
+        fragmentTransaction.commit();
         this.requestLocationAccess();
     }
 

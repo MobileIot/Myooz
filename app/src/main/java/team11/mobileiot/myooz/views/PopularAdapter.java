@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -20,31 +21,31 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     private List<String> list = null;
     private Context context;
 
-    public RecyclerAdapter(List<String> list) {
+    public PopularAdapter(List<String> list) {
         this.list = list;
         //this.context = context;
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artwork_item, parent, false);
-        return new RecyclerViewHolder(iv);
+    public PopularViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
+        return new PopularViewHolder(iv);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.bindImage(list.get(position));
+    public void onBindViewHolder(PopularViewHolder holder, int position) {
+        holder.bindItem(list.get(position));
     }
 
     @Override
     public int getItemCount() {
         return list != null ? list.size() : 0;
     }
-    
+
     public void addAll(Collection<?extends String> collection){
         int size=list.size();
         list.addAll(collection);
@@ -52,15 +53,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     }
 }
 
-class RecyclerViewHolder extends RecyclerView.ViewHolder {
+class PopularViewHolder extends RecyclerView.ViewHolder {
+    private TextView commentText, commentLikeNum;
     private SimpleDraweeView simpleDraweeView;
 
-    public RecyclerViewHolder(View itemView) {
+    public PopularViewHolder(View itemView) {
         super(itemView);
+        commentText = itemView.findViewById(R.id.comment_text);
         simpleDraweeView = itemView.findViewById(R.id.item_simpleDraweeView);
+        commentLikeNum = itemView.findViewById(R.id.comment_like_num);
     }
 
-    public void bindImage(String src) {
+    public void bindItem(String src) {
+        commentText.setText("Some comment sentences");
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -71,8 +76,6 @@ class RecyclerViewHolder extends RecyclerView.ViewHolder {
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
-    }
-    public void onClick(View view){
-
+        commentLikeNum.setText("245");
     }
 }
