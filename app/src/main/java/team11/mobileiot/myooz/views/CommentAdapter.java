@@ -21,23 +21,23 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 
-public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
-    private List<String> list = null;
+public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
+    private List<Comment> list = null;
     private Context context;
 
-    public PopularAdapter(List<String> list) {
+    public CommentAdapter(List<Comment> list) {
         this.list = list;
         //this.context = context;
     }
 
     @Override
-    public PopularViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
-        return new PopularViewHolder(iv);
+        return new CommentViewHolder(iv);
     }
 
     @Override
-    public void onBindViewHolder(PopularViewHolder holder, int position) {
+    public void onBindViewHolder(CommentViewHolder holder, int position) {
         holder.bindItem(list.get(position));
     }
 
@@ -46,25 +46,26 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<?extends String> collection){
+    public void addAll(Collection<?extends Comment> collection){
         int size=list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size,collection.size());
     }
 }
 
-class PopularViewHolder extends RecyclerView.ViewHolder {
-    private TextView commentText, commentLikeNum;
+class CommentViewHolder extends RecyclerView.ViewHolder {
+    private TextView commentText, title,subtitle;
     private SimpleDraweeView simpleDraweeView;
 
-    public PopularViewHolder(View itemView) {
+    public CommentViewHolder(View itemView) {
         super(itemView);
         commentText = itemView.findViewById(R.id.comment_content);
-        simpleDraweeView = itemView.findViewById(R.id.item_simpleDraweeView);
-        commentLikeNum = itemView.findViewById(R.id.comment_kudos);
+        simpleDraweeView = itemView.findViewById(R.id.comment_pic);
+        title=itemView.findViewById(R.id.comment_title);
+        subtitle=itemView.findViewById(R.id.comment_subtitle);
     }
 
-    public void bindItem(String src) {
+    public void bindItem(Comment src) {
         commentText.setText("Some comment sentences");
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
@@ -75,7 +76,9 @@ class PopularViewHolder extends RecyclerView.ViewHolder {
             }
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
-                .setUri(Uri.parse(src)).build());
-        commentLikeNum.setText("245");
+                .setUri(Uri.parse(src.url)).build());
+        subtitle.setText(src.subtitle);
+        title.setText(src.title);
+        commentText.setText(src.content);
     }
 }

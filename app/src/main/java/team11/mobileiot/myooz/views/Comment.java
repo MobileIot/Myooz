@@ -5,19 +5,23 @@ package team11.mobileiot.myooz.views;
  */
 
 public class Comment {
-    private String url;
-    private String title;
-    private String subtitle;
-    private String content;
+    public String url;
+    public String title;
+    public String subtitle;
+    public String content;
     private String time;
     private Integer numkudos;
-    Comment(String url,String title,String subtitle,String content,String time,Integer numkudos){
+    Comment(String url,String title,String content,String time,Integer numkudos){
         this.url=url;
         this.title=title;
         this.content=content;
         this.time=time;
         this.numkudos=numkudos;
-        this.subtitle=time+ "kudus: "+numkudos;
+        this.subtitle=time+ "  kudus: "+numkudos;
+    }
+    public void updateSubtitle(Integer numkudos){
+        this.numkudos=numkudos;
+        this.subtitle=time+ "  kudus: "+numkudos;
     }
 }
 
