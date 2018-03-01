@@ -18,23 +18,38 @@ import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import java.util.ArrayList;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
+import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.ArtworkCollection;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
+import team11.mobileiot.myooz.models.LocationChangeDelegate;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate, LocationChangeDelegate {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
+    private ArtworkCollection artworkCollection;
+    private int lastArea;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_place:
+                    Bundle bundle = new Bundle();
+                    ArrayList<Artwork> artworks = artworkCollection.getArtworks(0, 10);
+                    bundle.putParcelableArrayList("artworks", artworks);
                     fragment = new FragmentNearMe();
+                    fragment.setArguments(bundle);
                     break;
                 case R.id.navigation_popular:
                     fragment = new FragmentPopular();
@@ -45,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     return false;
             }
-            fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_container,fragment);
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container, fragment);
             fragmentTransaction.commit();
             return true;
         }
@@ -57,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_me);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -73,12 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FragmentNearMe fragment=new FragmentNearMe();
-        android.support.v4.app.FragmentManager fragmentManager=getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.main_container,fragment);
-        fragmentTransaction.commit();
-        this.requestLocationAccess();
+        this.artworkCollection = new ArtworkCollection();
+        new ArtworkCollectionRetrievalTask(this).execute();
     }
 
     @Override
@@ -177,10 +189,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void initBeaconService(Boolean permissionGranted) {
         if (permissionGranted) {
-            this.bs = new BeaconService(this.getApplicationContext());
+            this.bs = new BeaconService(this.getApplicationContext(), this);
             this.verifyBluetooth();
         } else {
             this.bs = null;
         }
+    }
+
+    public void updateImageFlow() {
+        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 10);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("artworks", artworks);
+
+        fragment = new FragmentNearMe();
+        fragment.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onArtworkRetrievalTaskComplete(ArrayList<Artwork> artworks) {
+        this.artworkCollection.setArtworks(artworks);
+        this.requestLocationAccess();
+        this.updateImageFlow();
+    }
+
+    @Override
+    public void onBeaconLocationChange(String beaconId) {
+        this.lastArea = 1 - this.lastArea;
+        this.updateImageFlow();
     }
 }

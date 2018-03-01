@@ -19,14 +19,13 @@ import java.util.Collection;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.Artwork;
 
 public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
-    private List<String> list = null;
-    private Context context;
+    private List<Artwork> list = null;
 
-    public NearMeAdapter(List<String> list) {
+    public NearMeAdapter(List<Artwork> list) {
         this.list = list;
-        //this.context = context;
     }
 
     @Override
@@ -37,18 +36,18 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
 
     @Override
     public void onBindViewHolder(NearMeViewHolder holder, int position) {
-        holder.bindImage(list.get(position));
+        holder.bindImage(list.get(position).imageUrl);
     }
 
     @Override
     public int getItemCount() {
         return list != null ? list.size() : 0;
     }
-    
-    public void addAll(Collection<?extends String> collection){
-        int size=list.size();
+
+    public void addAll(Collection<? extends Artwork> collection) {
+        int size = list.size();
         list.addAll(collection);
-        notifyItemRangeChanged(size,collection.size());
+        notifyItemRangeChanged(size, collection.size());
     }
 }
 
@@ -62,18 +61,19 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindImage(String src) {
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
+        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
-                float ratio = imageInfo.getWidth() / (float)imageInfo.getHeight();
+                float ratio = imageInfo.getWidth() / (float) imageInfo.getHeight();
                 simpleDraweeView.setAspectRatio(ratio);
             }
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
     }
-    public void onClick(View view){
+
+    public void onClick(View view) {
 
     }
 }

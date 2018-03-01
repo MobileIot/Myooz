@@ -13,22 +13,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.ArtworkCollection;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
+import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
 
-public class FragmentNearMe extends Fragment{
+public class FragmentNearMe extends Fragment {
 
     private RecyclerView recyclerView;
     private NearMeAdapter nearMeAdapter;
+    private ArrayList<Artwork> artworks;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v=inflater.inflate(R.layout.fragment_near_me, container, false);
-        RecyclerView recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview);
+        View v = inflater.inflate(R.layout.fragment_near_me, container, false);
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
 
-        ArrayList<String> data=(new DataSource()).DataSource(1);
-        NearMeAdapter adapter = new NearMeAdapter(data);
+        artworks = getArguments().getParcelableArrayList("artworks");
+        NearMeAdapter adapter = new NearMeAdapter(artworks);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         Interval interval = new Interval(4);
         recyclerView.addItemDecoration(interval);
@@ -40,4 +45,5 @@ public class FragmentNearMe extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
 }

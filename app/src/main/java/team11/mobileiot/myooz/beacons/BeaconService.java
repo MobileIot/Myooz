@@ -13,8 +13,11 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import team11.mobileiot.myooz.models.LocationChangeDelegate;
 
 /**
  * Created by Zhongyi on 27/02/2018.
@@ -25,16 +28,18 @@ public class BeaconService implements BeaconConsumer {
     private BeaconManager beaconManager;
     private Context applicationContext;
     private String lastConfirmedBeaconId;
-    private int confirmationCount = 0;
-    public static final int MIN_CONFIRMATION_COUNT = 1;
+    private LocationChangeDelegate delegate;
+    Map<String, Double> beaconsMap = new HashMap<String, Double>();
 
-    public BeaconService(Context context) {
+
+    public BeaconService(Context context, LocationChangeDelegate delegate) {
         this.applicationContext = context;
 
         this.beaconManager = BeaconManager.getInstanceForApplication(context);
         this.beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
         this.beaconManager.bind(this);
+        this.delegate = delegate;
     }
 
     public void destroy() {
@@ -48,31 +53,33 @@ public class BeaconService implements BeaconConsumer {
     private void handleBeaconsUpdate(Collection<Beacon> beacons) {
         Log.d("Meow", "Beacons count: " + beacons.size());
 
-        double minDistance = Integer.MAX_VALUE;
-        Beacon nearestBeacon = null;
-
         for (Beacon beacon : beacons) {
-            double distance = beacon.getDistance();
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearestBeacon = beacon;
+            String beaconId = beacon.getBluetoothAddress();
+            Double beaconDistance = beacon.getDistance();
+
+            if (beaconsMap.containsKey(beaconId)) {
+                Double oldDistance = beaconsMap.get(beaconId);
+                beaconsMap.put(beaconId, oldDistance * 0.2 + beaconDistance * 0.8);
+            } else {
+                beaconsMap.put(beaconId, beaconDistance);
             }
         }
 
-        if (nearestBeacon == null) return;
-
-        String beaconId = nearestBeacon.getBluetoothAddress();
-        if (nearestBeacon.getDistance() > 3) return;
-        if (beaconId.equals(this.lastConfirmedBeaconId)) {
-            this.confirmationCount += 1;
-            if (this.confirmationCount == MIN_CONFIRMATION_COUNT) {
-                // Confident about an nearest beacon update
-                Log.d("Meow", "Nearest Beacon (" + nearestBeacon.getBluetoothAddress()
-                        + ") is " + nearestBeacon.getDistance() + " meters away.");
+        Map.Entry<String, Double> nearestBeaconEntry = null;
+        for (Map.Entry<String, Double> entry : beaconsMap.entrySet()) {
+            if (nearestBeaconEntry == null || nearestBeaconEntry.getValue() > entry.getValue()) {
+                nearestBeaconEntry = entry;
             }
-        } else {
-            this.lastConfirmedBeaconId = beaconId;
-            this.confirmationCount = 0;
+        }
+
+        String nearestBeaconId = nearestBeaconEntry.getKey();
+        double nearestBeaconDistance = nearestBeaconEntry.getValue();
+
+        Log.d("Meow", "Nearest Beacon (" + nearestBeaconId
+                + ") is " + nearestBeaconDistance + " meters away.");
+        if (!nearestBeaconId.equals(this.lastConfirmedBeaconId)) {
+            this.lastConfirmedBeaconId = nearestBeaconId;
+            this.delegate.onBeaconLocationChange(nearestBeaconId);
         }
     }
 
