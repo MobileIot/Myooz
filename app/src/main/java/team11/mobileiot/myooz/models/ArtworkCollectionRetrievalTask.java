@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ArtworkCollectionRetrievalTask extends AsyncTask<Void, Void, ArrayList<Artwork>> {
     private static final String DEFAULT_COLLECTION_URL =
-            "https://raw.githubusercontent.com/MobileIot/met-data/master/met_objects_top_100.json";
+            "https://raw.githubusercontent.com/MobileIot/met-data/master/met_objects_raw_american.json";
     private ArtworkCollectionRetrievalTaskDelegate delegate;
 
     public ArtworkCollectionRetrievalTask(ArtworkCollectionRetrievalTaskDelegate delegate) {
