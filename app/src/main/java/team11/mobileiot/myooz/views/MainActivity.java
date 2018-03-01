@@ -36,15 +36,17 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     private FragmentTransaction fragmentTransaction;
     private ArtworkCollection artworkCollection;
     private int lastArea;
+    private boolean needBeaconUpdate = true;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+            needBeaconUpdate = false;
             switch (item.getItemId()) {
                 case R.id.navigation_place:
+                    needBeaconUpdate = true;
                     Bundle bundle = new Bundle();
                     ArrayList<Artwork> artworks = artworkCollection.getArtworks(0, 10);
                     bundle.putParcelableArrayList("artworks", artworks);
@@ -197,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     }
 
     public void updateImageFlow() {
+        if (!needBeaconUpdate) return;
+
         ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 10);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("artworks", artworks);

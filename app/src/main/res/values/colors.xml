@@ -10,4 +10,5 @@
     <color name='white'>#fff</color>
     <color name="title">#000</color>
     <color name="subtitle">#757575</color>
+    <color name="black_overlay">#66000000</color>
 </resources>
