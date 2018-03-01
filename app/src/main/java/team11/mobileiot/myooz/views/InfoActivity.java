@@ -1,6 +1,7 @@
 package team11.mobileiot.myooz.views;
 
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,7 +31,7 @@ public class InfoActivity extends AppCompatActivity {
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
             @Override
             public void OnLeftButtonClick() {
-                Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
