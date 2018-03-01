@@ -1,10 +1,14 @@
 package team11.mobileiot.myooz.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +40,7 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
 
     @Override
     public void onBindViewHolder(NearMeViewHolder holder, int position) {
-        holder.bindImage(list.get(position).imageUrl);
+        holder.bindImage(list.get(position));
     }
 
     @Override
@@ -60,7 +64,8 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bindImage(String src) {
+    public void bindImage(final Artwork artwork) {
+        String src = artwork.imageUrl;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -71,9 +76,13 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
-    }
-
-    public void onClick(View view) {
-
+        simpleDraweeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(simpleDraweeView.getContext(), InfoActivity.class);
+                intent.putExtra("artwork", artwork);
+                simpleDraweeView.getContext().startActivity(intent);
+            }
+        });
     }
 }

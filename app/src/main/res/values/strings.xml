@@ -3,6 +3,8 @@
     <string name="title_place">Near Me</string>
     <string name="title_popular">Popular</string>
     <string name="title_thought">My Thoughts</string>
+    <string name="tabbar_info">Info</string>
+    <string name="tabbar_discussion">Discussion</string>
     <string name="left_menu">Leftside Menu</string>
     <string name="search">Search</string>
     <string name="PER_DENY_MSG">Since location access has not been granted, this app will not be able to show you artworks according to your location.</string>

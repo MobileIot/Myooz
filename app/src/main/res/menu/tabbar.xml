@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_place"
+        android:icon="@drawable/ic_place_black_24dp"
+        android:title="@string/tabbar_info"
+        />
+
+    <item
+        android:id="@+id/navigation_popular"
+        android:icon="@drawable/ic_local_activity_black_24dp"
+        android:title="@string/tabbar_discussion"
+        />
+</menu>
