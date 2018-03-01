@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+<<<<<<< HEAD
     android:layout_height="match_parent">
+=======
+    android:layout_height="wrap_content">
+>>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="match_parent"
         />
+=======
+        android:layout_height="wrap_content" />
+>>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65
 
 </LinearLayout>

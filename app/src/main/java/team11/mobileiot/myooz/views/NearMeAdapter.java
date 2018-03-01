@@ -20,23 +20,27 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
     private List<String> list = null;
     private Context context;
 
+<<<<<<< HEAD:app/src/main/java/team11/mobileiot/myooz/views/RecyclerAdapter.java
     public RecyclerAdapter(List<String> list) {
+=======
+    public NearMeAdapter(List<String> list) {
+>>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65:app/src/main/java/team11/mobileiot/myooz/views/NearMeAdapter.java
         this.list = list;
         //this.context = context;
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NearMeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artwork_item, parent, false);
-        return new RecyclerViewHolder(iv);
+        return new NearMeViewHolder(iv);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(NearMeViewHolder holder, int position) {
         holder.bindImage(list.get(position));
     }
 
@@ -52,12 +56,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     }
 }
 
-class RecyclerViewHolder extends RecyclerView.ViewHolder {
+class NearMeViewHolder extends RecyclerView.ViewHolder {
     private SimpleDraweeView simpleDraweeView;
 
-    public RecyclerViewHolder(View itemView) {
+    public NearMeViewHolder(View itemView) {
         super(itemView);
         simpleDraweeView = itemView.findViewById(R.id.item_simpleDraweeView);
+
     }
 
     public void bindImage(String src) {

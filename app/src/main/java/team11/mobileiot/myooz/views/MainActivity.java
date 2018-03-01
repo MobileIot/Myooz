@@ -2,6 +2,8 @@ package team11.mobileiot.myooz.views;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -77,8 +79,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD:app/src/main/java/team11/mobileiot/myooz/views/MainActivity.java
         fragment=new FragmentNearMe();
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
+=======
+        FragmentNearMe fragment=new FragmentNearMe();
+        android.support.v4.app.FragmentManager fragmentManager=getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+>>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65:app/src/main/java/team11/mobileiot/myooz/views/MainActivity.java
         fragmentTransaction.add(R.id.main_container,fragment);
         fragmentTransaction.commit();
         this.requestLocationAccess();
