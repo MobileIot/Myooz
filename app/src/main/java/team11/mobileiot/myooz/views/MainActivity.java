@@ -10,16 +10,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-
 
 import java.util.ArrayList;
 
@@ -29,14 +26,16 @@ import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.ArtworkCollection;
 import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
 import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
+import team11.mobileiot.myooz.models.LocationChangeDelegate;
 
 
-public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate {
+public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate, LocationChangeDelegate {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
     private ArtworkCollection artworkCollection;
+    private int lastArea;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -189,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
 
     private void initBeaconService(Boolean permissionGranted) {
         if (permissionGranted) {
-            this.bs = new BeaconService(this.getApplicationContext());
+            this.bs = new BeaconService(this.getApplicationContext(), this);
             this.verifyBluetooth();
         } else {
             this.bs = null;
@@ -197,9 +196,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     }
 
     public void updateImageFlow() {
-        if (fragment != null && fragment.getId() != R.id.navigation_place) return;
-
-        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(0, 10);
+        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 10);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("artworks", artworks);
 
@@ -214,6 +211,12 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
     public void onArtworkRetrievalTaskComplete(ArrayList<Artwork> artworks) {
         this.artworkCollection.setArtworks(artworks);
         this.requestLocationAccess();
+        this.updateImageFlow();
+    }
+
+    @Override
+    public void onBeaconLocationChange(String beaconId) {
+        this.lastArea = 1 - this.lastArea;
         this.updateImageFlow();
     }
 }
