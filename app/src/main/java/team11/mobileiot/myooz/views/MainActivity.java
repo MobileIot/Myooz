@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new FragmentPopular();
                     break;
                 case R.id.navigation_thought:
+                    fragment = new FragmentMyThought();
                     break;
                 default:
                     return false;
@@ -55,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.activity_near_me);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
             @Override
