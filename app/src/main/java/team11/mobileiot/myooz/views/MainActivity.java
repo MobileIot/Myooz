@@ -2,8 +2,6 @@ package team11.mobileiot.myooz.views;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -12,19 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
@@ -79,14 +72,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD:app/src/main/java/team11/mobileiot/myooz/views/MainActivity.java
-        fragment=new FragmentNearMe();
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-=======
         FragmentNearMe fragment=new FragmentNearMe();
         android.support.v4.app.FragmentManager fragmentManager=getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
->>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65:app/src/main/java/team11/mobileiot/myooz/views/MainActivity.java
         fragmentTransaction.add(R.id.main_container,fragment);
         fragmentTransaction.commit();
         this.requestLocationAccess();

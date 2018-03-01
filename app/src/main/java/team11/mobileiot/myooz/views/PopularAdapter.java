@@ -59,9 +59,9 @@ class PopularViewHolder extends RecyclerView.ViewHolder {
 
     public PopularViewHolder(View itemView) {
         super(itemView);
-        commentText = itemView.findViewById(R.id.comment_text);
+        commentText = itemView.findViewById(R.id.comment_content);
         simpleDraweeView = itemView.findViewById(R.id.item_simpleDraweeView);
-        commentLikeNum = itemView.findViewById(R.id.comment_like_num);
+        commentLikeNum = itemView.findViewById(R.id.comment_kudos);
     }
 
     public void bindItem(String src) {

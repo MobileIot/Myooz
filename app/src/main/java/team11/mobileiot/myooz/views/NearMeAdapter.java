@@ -24,11 +24,7 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
     private List<String> list = null;
     private Context context;
 
-<<<<<<< HEAD:app/src/main/java/team11/mobileiot/myooz/views/RecyclerAdapter.java
-    public RecyclerAdapter(List<String> list) {
-=======
     public NearMeAdapter(List<String> list) {
->>>>>>> 0064095e3dca61cb5a74e6710f3abd9a7d4dbb65:app/src/main/java/team11/mobileiot/myooz/views/NearMeAdapter.java
         this.list = list;
         //this.context = context;
     }

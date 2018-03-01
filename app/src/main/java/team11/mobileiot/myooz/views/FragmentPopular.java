@@ -17,7 +17,7 @@ import team11.mobileiot.myooz.R;
 public class FragmentPopular extends Fragment{
 
     private RecyclerView recyclerView;
-    private RecyclerAdapter recyclerAdapter;
+    private NearMeAdapter recyclerAdapter;
 
     @Nullable
     @Override
