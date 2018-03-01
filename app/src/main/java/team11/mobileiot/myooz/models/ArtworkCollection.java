@@ -18,6 +18,10 @@ public class ArtworkCollection {
     public ArrayList<Artwork> getArtworks(int pageIndex, int itemsInPage) {
         int minIndex = Math.min(pageIndex * itemsInPage, this.artworks.size());
         int maxIndex = Math.min(minIndex + itemsInPage, this.artworks.size());
-        return new ArrayList<Artwork>(this.artworks.subList(minIndex, maxIndex));
+        if (maxIndex != 0) {
+            return new ArrayList<Artwork>(this.artworks.subList(minIndex, maxIndex));
+        } else {
+            return new ArrayList<Artwork>();
+        }
     }
 }
