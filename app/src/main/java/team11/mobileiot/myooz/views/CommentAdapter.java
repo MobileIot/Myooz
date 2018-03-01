@@ -23,11 +23,9 @@ import team11.mobileiot.myooz.R;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     private List<Comment> list = null;
-    private Context context;
 
     public CommentAdapter(List<Comment> list) {
         this.list = list;
-        //this.context = context;
     }
 
     @Override
@@ -66,7 +64,6 @@ class CommentViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindItem(Comment src) {
-        commentText.setText("Some comment sentences");
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {

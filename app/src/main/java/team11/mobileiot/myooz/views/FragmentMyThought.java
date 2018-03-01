@@ -31,7 +31,6 @@ public class FragmentMyThought extends Fragment {
         List<Comment> data = new ArrayList<Comment>();
         data.add(new Comment("https://images.metmuseum.org/CRDImages/ma/web-large/DT1432.jpg","Picture","Although some suggest that The Old Guitarist is a depiction of pain and isolation in the extreme, I would argue that it ...","02/28/2018",2));
 
-
         CommentAdapter adapter = new CommentAdapter(data);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         Interval interval = new Interval(4);
