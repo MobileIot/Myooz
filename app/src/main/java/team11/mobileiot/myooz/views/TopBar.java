@@ -27,7 +27,9 @@ public class TopBar extends RelativeLayout {
     }
 
     public interface OnLeftAndRightClickListener {
-        void OnLeftButtonClick();
+        void OnLeftButtonClick(
+
+        );
 
         void OnRightButtonClick();
     }
