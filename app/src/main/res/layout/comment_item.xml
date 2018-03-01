@@ -30,8 +30,6 @@
                 android:id="@+id/comment_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:gravity="center_vertical|left"
                 android:textColor="@color/title"
                 android:textSize="16sp" />
@@ -40,8 +38,6 @@
                 android:id="@+id/comment_subtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:gravity="center_vertical|left"
                 android:textColor="@color/subtitle"
                 android:textSize="10sp" />
