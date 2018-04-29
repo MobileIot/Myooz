@@ -16,12 +16,17 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_toEndOf="@id/leftButton"
+        android:layout_alignBaseline="@+id/leftButton"
+        android:layout_alignBottom="@+id/leftButton"
+        android:layout_toEndOf="@+id/leftButton"
+        android:layout_toStartOf="@+id/rightButton"
         android:gravity="center"
         android:paddingLeft="24dp"
-        android:textSize="24sp"/>
+        android:text="Myooz"
+        android:textAlignment="center"
+        android:textColor="@color/primaryDark"
+        android:textSize="36sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/rightButton"

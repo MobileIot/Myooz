@@ -35,7 +35,7 @@ public class FragmentNearMe extends Fragment {
         artworks = getArguments().getParcelableArrayList("artworks");
         NearMeAdapter adapter = new NearMeAdapter(artworks);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(4);
+        Interval interval = new Interval(8);
         recyclerView.addItemDecoration(interval);
         recyclerView.setAdapter(adapter);
         return v;

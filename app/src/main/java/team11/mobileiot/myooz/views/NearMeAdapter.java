@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -34,7 +35,7 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
 
     @Override
     public NearMeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artwork_item, parent, false);
+        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artwork_card, parent, false);
         return new NearMeViewHolder(iv);
     }
 
@@ -57,10 +58,14 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
 
 class NearMeViewHolder extends RecyclerView.ViewHolder {
     private SimpleDraweeView simpleDraweeView;
+    private TextView title,author,category;
 
     public NearMeViewHolder(View itemView) {
         super(itemView);
-        simpleDraweeView = itemView.findViewById(R.id.item_simpleDraweeView);
+        simpleDraweeView = itemView.findViewById(R.id.artwork_card_pic);
+        title=itemView.findViewById(R.id.artwork_card_title);
+        author=itemView.findViewById(R.id.artwork_card_author);
+        category= itemView.findViewById(R.id.artwork_card_category);
 
     }
 
@@ -70,12 +75,15 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
-                float ratio = imageInfo.getWidth() / (float) imageInfo.getHeight();
-                simpleDraweeView.setAspectRatio(ratio);
+                //float ratio = imageInfo.getWidth() / (float) imageInfo.getHeight();
+                //simpleDraweeView.setAspectRatio(ratio);
             }
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
+        title.setText(artwork.title);
+        author.setText(artwork.artistInfo);
+        category.setText(artwork.category);
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

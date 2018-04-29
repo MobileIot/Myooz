@@ -17,10 +17,10 @@
         android:background="@color/primary"
         android:visibility="visible"
         app:leftBackground="@color/left_menu_button"
-        app:rightBackground="@color/search_button"
+        app:rightBackground="@color/left_menu_button"
         app:titleText="Myooz"
-        app:titleTextColor="#FFF"
-        app:titleTextSize="6sp" />
+        app:titleTextColor="@color/subtitle"
+        app:titleTextSize="10sp" />
 
 
         <FrameLayout

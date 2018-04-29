@@ -9,13 +9,13 @@
 
     <item
         android:id="@+id/navigation_popular"
-        android:icon="@drawable/ic_local_activity_black_24dp"
+        android:icon="@drawable/ic_favorited_black_24dp"
         android:title="@string/title_popular"
         />
 
 
     <item
         android:id="@+id/navigation_thought"
-        android:icon="@drawable/ic_face_black_24dp"
+        android:icon="@drawable/ic_library_books_black_24dp"
         android:title="@string/title_thought" />
 </menu>
