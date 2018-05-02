@@ -22,7 +22,6 @@
         android:layout_toEndOf="@+id/leftButton"
         android:layout_toStartOf="@+id/rightButton"
         android:gravity="center"
-        android:paddingLeft="24dp"
         android:text="Myooz"
         android:textAlignment="center"
         android:textColor="@color/primaryDark"

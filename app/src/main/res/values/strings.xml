@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Myooz</string>
     <string name="title_place">Near Me</string>
-    <string name="title_popular">Favorites</string>
+    <string name="title_search">Search</string>
     <string name="title_thought">Notes</string>
     <string name="tabbar_info">Info</string>
     <string name="tabbar_discussion">Discussion</string>
