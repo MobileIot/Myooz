@@ -13,7 +13,7 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@drawable/lift_on_touch"
-        app:cardCornerRadius="@dimen/dp_4"
+        app:cardCornerRadius="@dimen/dp_8"
         app:cardUseCompatPadding="true"
         app:cardPreventCornerOverlap="false">
         <FrameLayout
