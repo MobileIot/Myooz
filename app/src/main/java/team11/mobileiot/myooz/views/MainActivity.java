@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
                     fragment.setArguments(bundle);
                     break;
                 case R.id.navigation_popular:
-                    fragment = new FragmentPopular();
+                    fragment = new FragmentSearch();
                     break;
                 case R.id.navigation_thought:
                     fragment = new FragmentMyThought();
