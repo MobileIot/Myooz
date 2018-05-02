@@ -5,7 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dp_16">8dp</dimen>
     <dimen name="dp_8">8dp</dimen>
-    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_4">8dp</dimen>
     <dimen name="artwork_text">60dp</dimen>
 
 </resources>

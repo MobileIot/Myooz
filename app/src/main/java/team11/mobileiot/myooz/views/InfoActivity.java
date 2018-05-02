@@ -40,38 +40,6 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
-        TabLayout tabLayout= (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Info"));
-        tabLayout.addTab(tabLayout.newTab().setText("Discussion"));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                String tabText = (String) tab.getText();
-                if (tabText.equals("Info")) {
-                    fragment = new FragmentArtInfo();
-                } else if (tabText.equals("Discussion")) {
-                    fragment = new FragmentCommentDiscussion();
-                } else return;
-                fragment.setArguments(arguments);
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-
-        fragment = new FragmentArtInfo();
-        arguments = new Bundle();
-        arguments.putParcelable("artwork", artwork);
-        fragment.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction().add(R.id.main_container, fragment).commit();
     }
 }

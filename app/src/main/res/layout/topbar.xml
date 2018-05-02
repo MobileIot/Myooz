@@ -5,12 +5,13 @@
 
     <Button
         android:id="@+id/leftButton"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/rightButton"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="@color/left_menu_button"/>
 
     <TextView
         android:id="@+id/titleText"
@@ -25,8 +26,8 @@
         android:text="Myooz"
         android:textAlignment="center"
         android:textColor="@color/primaryDark"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        android:fontFamily="serif" />
 
     <Button
         android:id="@+id/rightButton"
@@ -35,5 +36,6 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:padding="200dp"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/right_vert_button"/>
 </RelativeLayout>

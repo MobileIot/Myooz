@@ -18,22 +18,9 @@
         app:leftBackground="@color/left_back_button"
         app:rightBackground="@color/search_button"
         app:titleText="Myooz"
-        app:titleTextColor="#FFF"
-        app:titleTextSize="6sp" />
-
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#E0E0E0"
-        app:tabBackground="@color/primary"
-        app:tabIndicatorColor="@color/primary"
-        app:tabIndicatorHeight="5dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="#E0E0E0" />
-
+        app:titleTextColor="@color/subtitle"
+        app:titleTextSize="8sp"
+        />
 
     <FrameLayout
         android:id="@+id/main_container"

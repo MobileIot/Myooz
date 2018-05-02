@@ -17,10 +17,10 @@
         android:background="@color/primary"
         android:visibility="visible"
         app:leftBackground="@color/left_menu_button"
-        app:rightBackground="@color/left_menu_button"
+        app:rightBackground="@color/right_vert_button"
         app:titleText="Myooz"
         app:titleTextColor="@color/subtitle"
-        app:titleTextSize="10sp" />
+        app:titleTextSize="8sp" />
 
 
         <FrameLayout
@@ -29,7 +29,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         />
-
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
