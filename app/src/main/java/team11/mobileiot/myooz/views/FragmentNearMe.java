@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.graphics.Rect;
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.ArtworkCollection;
@@ -35,15 +35,11 @@ public class FragmentNearMe extends Fragment {
         artworks = getArguments().getParcelableArrayList("artworks");
         NearMeAdapter adapter = new NearMeAdapter(artworks);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(8);
+        Interval interval = new Interval(4);
         recyclerView.addItemDecoration(interval);
         recyclerView.setAdapter(adapter);
         return v;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
 }

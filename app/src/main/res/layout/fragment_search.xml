@@ -1,100 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:scrollbars="vertical">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        cardCornerRadius="@dimen/dp_4"
-        cardPreventCornerOverlap="false"
-        cardUseCompatPadding="true"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:stateListAnimator="@drawable/lift_on_touch">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            cardCornerRadius="@dimen/dp_8"
+            cardUseCompatPadding="true"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:background="#90DDDDDD"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:stateListAnimator="@drawable/lift_on_touch">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Artists"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/search_artists"/>
+                android:background="#fff"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:text="Artists" />
 
-    </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/search_artists"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        cardCornerRadius="@dimen/dp_4"
-        cardPreventCornerOverlap="false"
-        cardUseCompatPadding="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:stateListAnimator="@drawable/lift_on_touch">
+            </LinearLayout>
 
-        <LinearLayout
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            cardCornerRadius="@dimen/dp_32"
+            cardPreventCornerOverlap="false"
+            cardUseCompatPadding="true"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:background="#90DDDDDD"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:stateListAnimator="@drawable/lift_on_touch">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Art MoveMents"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/search_artmovement"/>
+                android:background="#fff"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:text="Art MoveMents" />
 
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        cardCornerRadius="@dimen/dp_4"
-        cardPreventCornerOverlap="false"
-        cardUseCompatPadding="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:stateListAnimator="@drawable/lift_on_touch">
+                <ImageView
+                    android:id="@+id/search_artmovement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
 
-        <LinearLayout
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            cardCornerRadius="@dimen/dp_32"
+            cardPreventCornerOverlap="false"
+            cardUseCompatPadding="true"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:background="#90DDDDDD"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:layout_margin="@dimen/dp_16"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:stateListAnimator="@drawable/lift_on_touch">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Museums"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/search_museums"/>
+                android:background="#fff"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:text="Museums" />
 
-    </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/search_museums"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
