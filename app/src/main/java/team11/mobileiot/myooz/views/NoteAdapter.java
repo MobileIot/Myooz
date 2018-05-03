@@ -1,6 +1,5 @@
 package team11.mobileiot.myooz.views;
 
-import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -21,21 +20,21 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
-    private List<Comment> list = null;
+public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
+    private List<Note> list = null;
 
-    public CommentAdapter(List<Comment> list) {
+    public NoteAdapter(List<Note> list) {
         this.list = list;
     }
 
     @Override
-    public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
-        return new CommentViewHolder(iv);
+    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
+        return new NoteViewHolder(iv);
     }
 
     @Override
-    public void onBindViewHolder(CommentViewHolder holder, int position) {
+    public void onBindViewHolder(NoteViewHolder holder, int position) {
         holder.bindItem(list.get(position));
     }
 
@@ -44,26 +43,26 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<?extends Comment> collection){
+    public void addAll(Collection<?extends Note> collection){
         int size=list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size,collection.size());
     }
 }
 
-class CommentViewHolder extends RecyclerView.ViewHolder {
-    private TextView commentText, title,subtitle;
+class NoteViewHolder extends RecyclerView.ViewHolder {
+    private TextView commentText,numkudos,time;
     private SimpleDraweeView simpleDraweeView;
 
-    public CommentViewHolder(View itemView) {
+    public NoteViewHolder(View itemView) {
         super(itemView);
         commentText = itemView.findViewById(R.id.comment_content);
         simpleDraweeView = itemView.findViewById(R.id.comment_pic);
-        title=itemView.findViewById(R.id.comment_title);
-        subtitle=itemView.findViewById(R.id.comment_subtitle);
+        numkudos=itemView.findViewById(R.id.kudosnumber);
+        time=itemView.findViewById(R.id.time);
     }
 
-    public void bindItem(Comment src) {
+    public void bindItem(Note src) {
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -74,8 +73,8 @@ class CommentViewHolder extends RecyclerView.ViewHolder {
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src.url)).build());
-        subtitle.setText(src.subtitle);
-        title.setText(src.title);
+        numkudos.setText(src.numkudos);
+        time.setText(src.time);
         commentText.setText(src.content);
     }
 }

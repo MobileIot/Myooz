@@ -1,22 +1,10 @@
 package team11.mobileiot.myooz.views;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,9 +12,9 @@ import java.util.List;
 import team11.mobileiot.myooz.R;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder> {
-    private List<Comment> list = null;
+    private List<Note> list = null;
 
-    public DiscussionAdapter(List<Comment> list) {
+    public DiscussionAdapter(List<Note> list) {
         this.list = list;
     }
 
@@ -46,7 +34,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<?extends Comment> collection){
+    public void addAll(Collection<?extends Note> collection){
         int size=list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size,collection.size());
@@ -63,9 +51,7 @@ class DiscussionViewHolder extends RecyclerView.ViewHolder {
         subtitle = itemView.findViewById(R.id.comment_subtitle);
     }
 
-    public void bindItem(Comment src) {
-        subtitle.setText(src.subtitle);
-        title.setText(src.title);
+    public void bindItem(Note src) {
         commentText.setText(src.content);
     }
 }

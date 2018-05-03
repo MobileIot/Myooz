@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import android.content.Intent;
 import java.io.InputStream;
 
 import team11.mobileiot.myooz.R;
@@ -18,14 +19,14 @@ public class FragmentSearch extends Fragment{
 
     private RecyclerView recyclerView;
     private NearMeAdapter recyclerAdapter;
-
+    private ImageView artist;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_search, container, false);
-        ImageView artist=  v.findViewById(R.id.search_artists);
+        artist=  v.findViewById(R.id.search_artists);
         InputStream is=getResources().openRawResource(R.raw.rambrandt);
         artist.setImageBitmap(BitmapFactory.decodeStream(is));
 
@@ -36,6 +37,15 @@ public class FragmentSearch extends Fragment{
         ImageView museum=v.findViewById(R.id.search_museums);
         is=getResources().openRawResource(R.raw.museum);
         museum.setImageBitmap(BitmapFactory.decodeStream(is));
+
+        artist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(artist.getContext(), ActivistyLists.class);
+                artist.getContext().startActivity(intent);
+            }
+        });
+
         return v;
     }
 
