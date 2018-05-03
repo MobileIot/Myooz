@@ -10,13 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
-import android.graphics.Rect;
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artwork;
-import team11.mobileiot.myooz.models.ArtworkCollection;
-import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
-import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
 
 public class FragmentNearMe extends Fragment {
 

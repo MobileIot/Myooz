@@ -65,7 +65,7 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
         simpleDraweeView = itemView.findViewById(R.id.artwork_card_pic);
         title=itemView.findViewById(R.id.artwork_card_title);
         author=itemView.findViewById(R.id.artwork_card_author);
-        category= itemView.findViewById(R.id.artwork_card_category);
+        //category= itemView.findViewById(R.id.artwork_card_category);
 
     }
 
@@ -83,7 +83,7 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
                 .setUri(Uri.parse(src)).build());
         title.setText(artwork.title);
         author.setText(artwork.artistInfo);
-        category.setText(artwork.category);
+        //category.setText(artwork.category);
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
