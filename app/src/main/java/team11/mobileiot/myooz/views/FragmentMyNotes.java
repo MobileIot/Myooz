@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
+import team11.mobileiot.myooz.models.Note;
 
-public class FragmentMyThought extends Fragment {
+public class FragmentMyNotes extends Fragment {
 
     private RecyclerView recyclerView;
     private NearMeAdapter recyclerAdapter;
@@ -25,13 +28,26 @@ public class FragmentMyThought extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v=inflater.inflate(R.layout.fragment_near_me, container, false);
+        View v=inflater.inflate(R.layout.fragment_note, container, false);
         RecyclerView recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview);
 
-        List<Note> data = new ArrayList<Note>();
-        data.add(new Note("https://images.metmuseum.org/CRDImages/ma/web-large/DT1432.jpg","Picture","Although some suggest that The Old Guitarist is a depiction of pain and isolation in the extreme, I would argue that it ...","02/28/2018",2));
+        final List<Note> data = new ArrayList<Note>();
 
-        NoteAdapter adapter = new NoteAdapter(data);
+        Note.GetNoteByArtist(1, new NetworkTaskHandler<List<Note>>() {
+            @Override
+            public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
+                HashMap<Integer, Note> map = new HashMap<>();
+                for (Note note : result) {
+                    if(!map.containsKey(note.artwork_id)) {
+                        map.put(note.artwork_id, note);
+                        data.add(note);
+                    }
+                }
+
+            }
+            });
+
+        MyNoteAdapter adapter = new MyNoteAdapter(data);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         Interval interval = new Interval(4);
         recyclerView.addItemDecoration(interval);

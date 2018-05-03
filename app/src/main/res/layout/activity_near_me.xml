@@ -30,14 +30,16 @@
         android:layout_weight="1"
         />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="?android:attr/windowBackground"
-        app:itemBackground="@android:color/white"
-        app:itemIconTint="@color/bottom_navigation_selector"
-        app:itemTextColor="@color/bottom_navigation_selector"
-        app:menu="@menu/navigation" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:itemBackground="@android:color/white"
+            app:itemIconTint="@color/bottom_navigation_selector"
+            app:itemTextColor="@color/bottom_navigation_selector"
+            app:menu="@menu/navigation" />
 
 </LinearLayout>

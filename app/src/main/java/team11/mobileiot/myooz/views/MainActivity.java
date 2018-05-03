@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
                     fragment = new FragmentSearch();
                     break;
                 case R.id.navigation_thought:
-                    fragment = new FragmentMyThought();
+                    fragment = new FragmentMyNotes();
                     break;
                 default:
                     return false;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
                 Log.d("11111", result.name);
             }
         });
-        Artist.GetArtistByMuseumAndRoom(1, 2, new NetworkTaskHandler<List<Artist>>() {
+        Artist.GetArtist( new NetworkTaskHandler<List<Artist>>() {
             @Override
             public void onReady(List<Artist> result) {
                 for (Artist art : result){

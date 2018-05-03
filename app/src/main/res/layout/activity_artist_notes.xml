@@ -19,27 +19,28 @@
         app:rightBackground="@color/search_button"
         app:titleText="Myooz"
         app:titleTextColor="@color/subtitle"
-        app:titleTextSize="8sp"
-        />
+        app:titleTextSize="8sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="160dp"
         android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/artist_note_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/artist_note_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            fresco:placeholderImage="@drawable/ic_local_activity_black_24dp" />
+
         <TextView
+            android:id="@+id/artist_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
             android:layout_gravity="bottom"
-            android:textSize="12dp"
-            android:id="@+id/artiest_name"/>
+            android:textColor="#fff"
+            android:textSize="12dp" />
     </FrameLayout>
 
     <android.support.design.widget.TabLayout
@@ -47,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E0E0E0"
-        app:tabBackground="@color/inactive"
-        app:tabIndicatorColor="@color/inactive"
+        app:tabBackground="@color/white"
+        app:tabIndicatorColor="@color/selected"
         app:tabIndicatorHeight="5dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/selected"

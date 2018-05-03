@@ -1,35 +1,34 @@
 package team11.mobileiot.myooz.views;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Collection;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
-import team11.mobileiot.myooz.models.Artiest;
+import team11.mobileiot.myooz.models.Artist;
 
 /**
  * Created by flora on 5/2/18.
  */
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder>{
-    private List<Artiest> list = null;
+    private List<Artist> list = null;
 
-    public ListAdapter(List<Artiest> list) {
+    public ListAdapter(List<Artist> list) {
         this.list = list;
     }
 
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artiest_card, parent, false);
+        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_card, parent, false);
         return new ListViewHolder(iv);
     }
 
@@ -43,7 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder>{
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<? extends Artiest> collection) {
+    public void addAll(Collection<? extends Artist> collection) {
         int size = list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size, collection.size());
@@ -52,26 +51,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
 
 class ListViewHolder extends RecyclerView.ViewHolder {
-    private ImageView imageView;
+    private SimpleDraweeView imageView;
     private TextView author;
 
     public ListViewHolder(View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.artiest_image);
-        author=itemView.findViewById(R.id.artiest_name);
+        imageView = itemView.findViewById(R.id.artist_image);
+        author=itemView.findViewById(R.id.artist_name);
         //category= itemView.findViewById(R.id.artwork_card_category);
 
     }
 
-    public void bindImage(final Artiest artist) {
-        imageView.setImageBitmap(artist.bitmap);
+    public void bindImage(final Artist artist) {
+        imageView.setImageURI(artist.avatar);
         author.setText(artist.name);
         //category.setText(artwork.category);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(imageView.getContext(), ActivityArtistNote.class);
-                intent.putExtra("artiest", artist);
+                intent.putExtra("artist", artist);
                 MainActivity.needBeaconUpdate = false;
                 imageView.getContext().startActivity(intent);
             }

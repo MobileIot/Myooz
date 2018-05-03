@@ -19,23 +19,27 @@ import java.util.Collection;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.Note;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
+/**
+ * Created by flora on 5/3/18.
+ */
+public class MyNoteAdapter extends RecyclerView.Adapter<MyNoteHolder> {
     private List<Note> list = null;
 
-    public NoteAdapter(List<Note> list) {
+    public MyNoteAdapter(List<Note> list) {
         this.list = list;
     }
 
     @Override
-    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
-        return new NoteViewHolder(iv);
+    public MyNoteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View iv = LayoutInflater.from(parent.getContext()).inflate(R.layout.mynote_item, parent, false);
+        return new MyNoteHolder(iv);
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, int position) {
+    public void onBindViewHolder(MyNoteHolder holder, int position) {
         holder.bindItem(list.get(position));
     }
 
@@ -51,31 +55,29 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 }
 
-class NoteViewHolder extends RecyclerView.ViewHolder {
-    private TextView commentText,numkudos,time;
+class MyNoteHolder extends RecyclerView.ViewHolder {
+    private TextView note,name;
     private SimpleDraweeView simpleDraweeView;
 
-    public NoteViewHolder(View itemView) {
+    public MyNoteHolder(View itemView) {
         super(itemView);
-        commentText = itemView.findViewById(R.id.comment_content);
+        note = itemView.findViewById(R.id.note_content);
         simpleDraweeView = itemView.findViewById(R.id.note_image);
-        numkudos=itemView.findViewById(R.id.kudosnumber);
-        time=itemView.findViewById(R.id.time);
+        name=itemView.findViewById(R.id.artwork_name);
     }
 
     public void bindItem(Note src) {
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
+        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
-                float ratio = imageInfo.getWidth() / (float)imageInfo.getHeight();
+                float ratio = imageInfo.getWidth() / (float) imageInfo.getHeight();
                 simpleDraweeView.setAspectRatio(ratio);
             }
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src.avatar)).build());
-        numkudos.setText("0");
-        time.setText("2017-11-17");
-        commentText.setText(src.content);
+        note.setText(src.content);
+        name.setText(src.id);
     }
 }

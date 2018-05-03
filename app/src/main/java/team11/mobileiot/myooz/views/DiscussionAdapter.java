@@ -12,9 +12,9 @@ import java.util.List;
 import team11.mobileiot.myooz.R;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder> {
-    private List<Note> list = null;
+    private List<Comment> list = null;
 
-    public DiscussionAdapter(List<Note> list) {
+    public DiscussionAdapter(List<Comment> list) {
         this.list = list;
     }
 
@@ -34,7 +34,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<?extends Note> collection){
+    public void addAll(Collection<?extends Comment> collection){
         int size=list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size,collection.size());
@@ -51,7 +51,7 @@ class DiscussionViewHolder extends RecyclerView.ViewHolder {
         subtitle = itemView.findViewById(R.id.comment_subtitle);
     }
 
-    public void bindItem(Note src) {
+    public void bindItem(Comment src) {
         commentText.setText(src.content);
     }
 }

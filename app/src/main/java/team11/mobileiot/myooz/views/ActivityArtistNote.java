@@ -2,15 +2,17 @@ package team11.mobileiot.myooz.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import team11.mobileiot.myooz.R;
-import team11.mobileiot.myooz.models.Artiest;
+import team11.mobileiot.myooz.models.Artist;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by flora on 5/3/18.
@@ -21,13 +23,14 @@ public class ActivityArtistNote extends AppCompatActivity {
     private Bundle arguments;
 
     protected void onCreate(Bundle savedInstanceState) {
+        Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_notes);
-        ImageView image=findViewById(R.id.artist_note_image);
-        Artiest artiest=getIntent().getParcelableExtra("artist");
-        image.setImageBitmap(artiest.bitmap);
-        TextView name=findViewById(R.id.artiest_name);
-        name.setText(artiest.name);
+        SimpleDraweeView image = findViewById(R.id.artist_note_image);
+        Artist artist = getIntent().getParcelableExtra("artist");
+        image.setImageURI(artist.avatar);
+        TextView name = findViewById(R.id.artist_name);
+        name.setText(artist.name);
 
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
@@ -42,7 +45,7 @@ public class ActivityArtistNote extends AppCompatActivity {
             }
         });
 
-        TabLayout tabLayout= (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("TIME"));
         tabLayout.addTab(tabLayout.newTab().setText("LIKES"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -70,6 +73,9 @@ public class ActivityArtistNote extends AppCompatActivity {
         });
 
         fragment = new FragmentNotes();
+        arguments = new Bundle();
+        arguments.putInt("artist", artist.id);
+        fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, fragment).commit();
     }
 }

@@ -80,6 +80,23 @@ public class Note implements Parcelable {
         }).execute("GET", "/notes?museum_id=" + museum_id + "&room_id=" + room_id, "JSONArray");
     }
 
+    public static void GetNoteByArtist(int artist_id, final NetworkTaskHandler<List<Note>> nto) {
+        new NetworkTask(new NetworkTaskHandler<JSONArray>() {
+            @Override
+            public void onReady(JSONArray result) {
+                nto.onReady(JSONArray2NoteList(result));
+            }
+        }).execute("GET", "/notes?artist_id=" + artist_id, "JSONArray");
+    }
+    public static void GetNoteSelf(final NetworkTaskHandler<List<Note>> nto) {
+        new NetworkTask(new NetworkTaskHandler<JSONArray>() {
+            @Override
+            public void onReady(JSONArray result) {
+                nto.onReady(JSONArray2NoteList(result));
+            }
+        }).execute("GET", "/notes?my_notes_only=1", "JSONArray");
+    }
+
     private static Note JSONObject2Note(JSONObject json) {
         Note result = null;
         try {
