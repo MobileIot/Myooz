@@ -31,7 +31,6 @@ public class FragmentNearMe extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_near_me, container, false);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-
         artworks = getArguments().getParcelableArrayList("artworks");
         NearMeAdapter adapter = new NearMeAdapter(artworks);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
 
 
     private void verifyBluetooth() {
+        if (true) return;
         try {
             if (!this.bs.checkAvailability()) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);

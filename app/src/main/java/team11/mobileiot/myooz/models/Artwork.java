@@ -1,5 +1,6 @@
 package team11.mobileiot.myooz.models;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -55,5 +56,6 @@ public class Artwork implements Parcelable {
         parcel.writeString(artistInfo);
         parcel.writeString(title);
         parcel.writeString(category);
+
     }
 }
