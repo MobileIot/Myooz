@@ -37,6 +37,8 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
+import team11.mobileiot.myooz.models.Note;
 
 public class InfoActivity extends AppCompatActivity {
     private Fragment fragment;
@@ -78,6 +80,22 @@ public class InfoActivity extends AppCompatActivity {
         artist.setText(artwork.artistInfo);
         category.setText(artwork.category);
 
+        // TODO: Change this hard-code part
+        team11.mobileiot.myooz.models.Note.GetNoteByMuseumAndRoom(1, 0, new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
+            @Override
+            public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
+                List<Artwork> parts = new ArrayList<>();
+                for (Note note : result) {
+                    parts.add(new Artwork( "", note.id + "", "", "", note.avatar));
+                }
+                RecyclerView recyclerView = findViewById(R.id.info_recyclerview);
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+                InfoAdapter adapter = new InfoAdapter(parts);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+        /*
         List<Artwork> parts;
         // TODO: Remove this hard-coded part
         parts = new ArrayList<>();
@@ -90,6 +108,7 @@ public class InfoActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         InfoAdapter adapter = new InfoAdapter(parts);
         recyclerView.setAdapter(adapter);
+        */
 
         ImageView cameraTextView = this.findViewById(R.id.image_camera);
         cameraTextView.setOnClickListener(new View.OnClickListener() {

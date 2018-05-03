@@ -19,14 +19,17 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
+import team11.mobileiot.myooz.models.Artist;
 import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.ArtworkCollection;
 import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
 import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
 import team11.mobileiot.myooz.models.LocationChangeDelegate;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
 
 
 public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate, LocationChangeDelegate {
@@ -93,6 +96,22 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
 
         this.artworkCollection = new ArtworkCollection();
         new ArtworkCollectionRetrievalTask(this).execute();
+
+        // TODO: Remove the following test code
+        Artist.GetArtistByID(2, new NetworkTaskHandler<Artist>() {
+            @Override
+            public void onReady(Artist result) {
+                Log.d("11111", result.name);
+            }
+        });
+        Artist.GetArtistByMuseumAndRoom(1, 2, new NetworkTaskHandler<List<Artist>>() {
+            @Override
+            public void onReady(List<Artist> result) {
+                for (Artist art : result){
+                    Log.d("22222", art.name);
+                }
+            }
+        });
     }
 
     @Override

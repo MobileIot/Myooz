@@ -4,18 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Museum implements Parcelable {
-    public String id;
+    public int id;
     public String name;
     public String avatar;
 
-    public Museum(String id, String name, String avatar) {
+    public Museum(int id, String name, String avatar) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
     }
 
     protected Museum(Parcel in) {
-        id = in.readString();
+        id = in.readInt();
         name = in.readString();
         avatar = in.readString();
     }
@@ -39,7 +39,7 @@ public class Museum implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
+        parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(avatar);
     }
