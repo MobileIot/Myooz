@@ -90,6 +90,7 @@ public class NoteActivity extends AppCompatActivity {
                             case R.id.delete_note:
                                 break;
                             case R.id.report_note:
+                                reportButton.callOnClick();
                                 break;
                             default:
                                 break;

@@ -1,5 +1,6 @@
 package team11.mobileiot.myooz.views;
 
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -69,7 +70,7 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
         reportButton = itemView.findViewById(R.id.comment_report);
     }
 
-    public void bindItem(Note src) {
+    public void bindItem(final Note src) {
         final String note_id = src.id;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
@@ -81,6 +82,14 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src.avatar)).build());
+        simpleDraweeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(simpleDraweeView.getContext(), NoteActivity.class);
+                intent.putExtra("note", src);
+                simpleDraweeView.getContext().startActivity(intent);
+            }
+        });
         numkudos.setText("0");
         time.setText("2017-11-17");
         commentText.setText(src.content);
