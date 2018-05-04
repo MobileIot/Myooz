@@ -74,7 +74,7 @@ public class ActivityArtistNote extends AppCompatActivity {
 
         fragment = new FragmentNotes();
         arguments = new Bundle();
-        arguments.putInt("artist", artist.id);
+        arguments.putString("artist", artist.id);
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, fragment).commit();
     }

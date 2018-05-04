@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.Artist;
 import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.NetworkTaskHandler;
 import team11.mobileiot.myooz.models.Note;
@@ -67,18 +68,21 @@ public class InfoActivity extends AppCompatActivity {
 
         final SimpleDraweeView simpleDraweeView = this.findViewById(R.id.item_simpleDraweeView);
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder()
-                .setUri(Uri.parse(artwork.imageUrl)).build());
+                .setUri(Uri.parse(artwork.avatar)).build());
         simpleDraweeView.getHierarchy()
                 .setActualImageFocusPoint(new PointF(0, 0));
 
-        TextView title = this.findViewById(R.id.info_title);
-        TextView artist = this.findViewById(R.id.info_artist);
-        TextView category = this.findViewById(R.id.info_category);
-        TextView content = this.findViewById(R.id.info_content);
+        final TextView title = this.findViewById(R.id.info_title);
+        final TextView artist = this.findViewById(R.id.info_artist);
+        final TextView content = this.findViewById(R.id.info_content);
 
-        title.setText(artwork.title);
-        artist.setText(artwork.artistInfo);
-        category.setText(artwork.category);
+        title.setText(artwork.name);
+        Artist.GetArtistByID(artwork.artist_id, new NetworkTaskHandler<Artist>() {
+            @Override
+            public void onReady(Artist result) {
+                artist.setText(result.name);
+            }
+        });
 
         // TODO: Change this hard-code part
         team11.mobileiot.myooz.models.Note.GetNoteByMuseumAndRoom(1, 0, new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
@@ -86,7 +90,7 @@ public class InfoActivity extends AppCompatActivity {
             public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
                 List<Artwork> parts = new ArrayList<>();
                 for (Note note : result) {
-                    parts.add(new Artwork( "", note.id + "", "", "", note.avatar));
+                    parts.add(new Artwork( ""+note.id, "", "", "", "", "", note.avatar, ""));
                 }
                 RecyclerView recyclerView = findViewById(R.id.info_recyclerview);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));

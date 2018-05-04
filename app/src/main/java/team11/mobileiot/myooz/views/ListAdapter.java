@@ -58,14 +58,12 @@ class ListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         imageView = itemView.findViewById(R.id.artist_image);
         author=itemView.findViewById(R.id.artist_name);
-        //category= itemView.findViewById(R.id.artwork_card_category);
 
     }
 
     public void bindImage(final Artist artist) {
         imageView.setImageURI(artist.avatar);
         author.setText(artist.name);
-        //category.setText(artwork.category);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

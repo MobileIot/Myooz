@@ -4,6 +4,7 @@ import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
 import team11.mobileiot.myooz.models.Note;
 
 /**
@@ -78,6 +80,11 @@ class MyNoteHolder extends RecyclerView.ViewHolder {
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src.avatar)).build());
         note.setText(src.content);
-        name.setText(src.id);
+        Artwork.GetArtworkByID(src.artwork_id, new NetworkTaskHandler<Artwork>() {
+            @Override
+            public void onReady(Artwork result) {
+                name.setText(result.name);
+            }
+        });
     }
 }

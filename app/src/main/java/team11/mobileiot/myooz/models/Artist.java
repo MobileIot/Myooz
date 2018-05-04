@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artist implements Parcelable {
-    public int id;
+    public String id;
     public String name;
     public String avatar;
 
-    public Artist(int id, String name, String avatar) {
+    public Artist(String id, String name, String avatar) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
     }
 
     protected Artist(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         name = in.readString();
         avatar = in.readString();
     }
@@ -45,12 +45,12 @@ public class Artist implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(id);
         parcel.writeString(name);
         parcel.writeString(avatar);
     }
 
-    public static void GetArtistByID(int id, final NetworkTaskHandler<Artist> nto) {
+    public static void GetArtistByID(String id, final NetworkTaskHandler<Artist> nto) {
         new NetworkTask(new NetworkTaskHandler<JSONObject>() {
             @Override
             public void onReady(JSONObject result) {
@@ -71,7 +71,7 @@ public class Artist implements Parcelable {
     private static Artist JSONObject2Artist(JSONObject json) {
         Artist result = null;
         try {
-            int id = json.getInt("id");
+            String id = json.getString("id");
             String name = json.getString("name");
             String avatar = json.getString("avatar");
             result = new Artist(id, name, avatar);
@@ -86,7 +86,7 @@ public class Artist implements Parcelable {
         for (int i = 0; i < jsons.length(); i++) {
             try {
                 JSONObject json = jsons.getJSONObject(i);
-                int id = json.getInt("id");
+                String id = json.getString("id");
                 String name = json.getString("name");
                 String avatar = json.getString("avatar");
                 result.add(new Artist(id, name, avatar));

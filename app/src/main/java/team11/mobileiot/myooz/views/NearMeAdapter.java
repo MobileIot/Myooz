@@ -24,7 +24,9 @@ import java.util.Collection;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
+import team11.mobileiot.myooz.models.Artist;
 import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
 
 public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
     private List<Artwork> list = null;
@@ -58,19 +60,18 @@ public class NearMeAdapter extends RecyclerView.Adapter<NearMeViewHolder> {
 
 class NearMeViewHolder extends RecyclerView.ViewHolder {
     private SimpleDraweeView simpleDraweeView;
-    private TextView title,author,category;
+    private TextView title,author;
 
     public NearMeViewHolder(View itemView) {
         super(itemView);
         simpleDraweeView = itemView.findViewById(R.id.artwork_card_pic);
         title=itemView.findViewById(R.id.artwork_card_title);
         author=itemView.findViewById(R.id.artwork_card_author);
-        //category= itemView.findViewById(R.id.artwork_card_category);
 
     }
 
     public void bindImage(final Artwork artwork) {
-        String src = artwork.imageUrl;
+        String src = artwork.avatar;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -81,9 +82,13 @@ class NearMeViewHolder extends RecyclerView.ViewHolder {
         };
         simpleDraweeView.setController(Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener)
                 .setUri(Uri.parse(src)).build());
-        title.setText(artwork.title);
-        author.setText(artwork.artistInfo);
-        //category.setText(artwork.category);
+        title.setText(artwork.name);
+        Artist.GetArtistByID(artwork.artist_id, new NetworkTaskHandler<Artist>() {
+            @Override
+            public void onReady(Artist result) {
+                author.setText(result.name);
+            }
+        });
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -29,29 +29,27 @@ public class FragmentMyNotes extends Fragment {
                              Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_note, container, false);
-        RecyclerView recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview);
+        final RecyclerView recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview);
 
         final List<Note> data = new ArrayList<Note>();
 
         Note.GetNoteByArtist(1, new NetworkTaskHandler<List<Note>>() {
             @Override
             public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
-                HashMap<Integer, Note> map = new HashMap<>();
+                HashMap<String, Note> map = new HashMap<>();
                 for (Note note : result) {
                     if(!map.containsKey(note.artwork_id)) {
                         map.put(note.artwork_id, note);
                         data.add(note);
+                        MyNoteAdapter adapter = new MyNoteAdapter(data);
+                        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+                        Interval interval = new Interval(4);
+                        recyclerView.addItemDecoration(interval);
+                        recyclerView.setAdapter(adapter);
                     }
                 }
-
             }
-            });
-
-        MyNoteAdapter adapter = new MyNoteAdapter(data);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        Interval interval = new Interval(4);
-        recyclerView.addItemDecoration(interval);
-        recyclerView.setAdapter(adapter);
+        });
         return v;
     }
 

@@ -17,18 +17,16 @@ import java.util.List;
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artist;
 import team11.mobileiot.myooz.models.Artwork;
-import team11.mobileiot.myooz.models.ArtworkCollection;
 import team11.mobileiot.myooz.models.NetworkTaskHandler;
 
 /**
  * Created by flora on 5/2/18.
  */
 
-public class ActivistyLists extends AppCompatActivity {
+public class ActivityLists extends AppCompatActivity {
 
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
-    private ArtworkCollection artworkCollection;
     public static boolean needBeaconUpdate = true;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -40,11 +38,7 @@ public class ActivistyLists extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_place:
                     needBeaconUpdate = true;
-                    Bundle bundle = new Bundle();
-                    ArrayList<Artwork> artworks = artworkCollection.getArtworks(0, 10);
-                    bundle.putParcelableArrayList("artworks", artworks);
                     fragment = new FragmentNearMe();
-                    fragment.setArguments(bundle);
                     break;
                 case R.id.navigation_popular:
                     fragment = new FragmentSearch();

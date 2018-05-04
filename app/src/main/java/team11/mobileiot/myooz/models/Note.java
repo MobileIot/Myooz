@@ -2,6 +2,7 @@ package team11.mobileiot.myooz.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Note implements Parcelable {
-    public int id;
+    public String id;
     public String avatar;
     public String content;
-    public int artwork_id;
+    public String artwork_id;
     public String username;
-    public int _public;
+    public String _public;
 
-    public Note(int id, String avatar, String content, int artwork_id, String username, int _public) {
+    public Note(String id, String avatar, String content, String artwork_id, String username, String _public) {
         this.id = id;
         this.avatar = avatar;
         this.content = content;
@@ -27,12 +28,12 @@ public class Note implements Parcelable {
     }
 
     protected Note(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         avatar = in.readString();
         content = in.readString();
-        artwork_id = in.readInt();
+        artwork_id = in.readString();
         username = in.readString();
-        _public = in.readInt();
+        _public = in.readString();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -54,12 +55,12 @@ public class Note implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(id);
         parcel.writeString(avatar);
         parcel.writeString(content);
-        parcel.writeInt(artwork_id);
+        parcel.writeString(artwork_id);
         parcel.writeString(username);
-        parcel.writeInt(_public);
+        parcel.writeString(_public);
     }
 
     public static void GetNotesByID(int id, final NetworkTaskHandler<Note> nto) {
@@ -100,12 +101,12 @@ public class Note implements Parcelable {
     private static Note JSONObject2Note(JSONObject json) {
         Note result = null;
         try {
-            int id = json.getInt("id");
+            String id = json.getString("id");
             String avatar = json.getString("avatar");
             String content = json.getString("content");
-            int artwork_id = json.getInt("artwork_id");
+            String artwork_id = json.getString("artwork_id");
             String username = json.getString("username");
-            int _public = json.getInt("public");
+            String _public = json.getString("public");
             result = new Note(id, avatar, content, artwork_id, username, _public);
         } catch (Exception ee) {
             ee.printStackTrace();
@@ -118,12 +119,12 @@ public class Note implements Parcelable {
         for (int i = 0; i < jsons.length(); i++) {
             try {
                 JSONObject json = jsons.getJSONObject(i);
-                int id = json.getInt("id");
+                String id = json.getString("id");
                 String avatar = json.getString("avatar");
                 String content = json.getString("content");
-                int artwork_id = json.getInt("artwork_id");
+                String artwork_id = json.getString("artwork_id");
                 String username = json.getString("username");
-                int _public = json.getInt("public");
+                String _public = json.getString("public");
                 result.add(new Note(id, avatar, content, artwork_id, username, _public));
             } catch (Exception ee) {
                 ee.printStackTrace();

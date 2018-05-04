@@ -49,16 +49,6 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/info_category"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/subtitle"
-            android:textSize="14sp" />
-
-        <TextView
             android:id="@+id/info_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

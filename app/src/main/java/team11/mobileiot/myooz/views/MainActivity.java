@@ -25,19 +25,15 @@ import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.beacons.BeaconService;
 import team11.mobileiot.myooz.models.Artist;
 import team11.mobileiot.myooz.models.Artwork;
-import team11.mobileiot.myooz.models.ArtworkCollection;
-import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTask;
-import team11.mobileiot.myooz.models.ArtworkCollectionRetrievalTaskDelegate;
 import team11.mobileiot.myooz.models.LocationChangeDelegate;
 import team11.mobileiot.myooz.models.NetworkTaskHandler;
 
 
-public class MainActivity extends AppCompatActivity implements ArtworkCollectionRetrievalTaskDelegate, LocationChangeDelegate {
+public class MainActivity extends AppCompatActivity implements LocationChangeDelegate {
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private BeaconService bs;
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
-    private ArtworkCollection artworkCollection;
     private int lastArea;
     public static boolean needBeaconUpdate = true;
 
@@ -50,11 +46,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
             switch (item.getItemId()) {
                 case R.id.navigation_place:
                     needBeaconUpdate = true;
-                    Bundle bundle = new Bundle();
-                    ArrayList<Artwork> artworks = artworkCollection.getArtworks(0, 10);
-                    bundle.putParcelableArrayList("artworks", artworks);
                     fragment = new FragmentNearMe();
-                    fragment.setArguments(bundle);
                     break;
                 case R.id.navigation_popular:
                     fragment = new FragmentSearch();
@@ -93,25 +85,7 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
                 Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
             }
         });
-
-        this.artworkCollection = new ArtworkCollection();
-        new ArtworkCollectionRetrievalTask(this).execute();
-
-        // TODO: Remove the following test code
-        Artist.GetArtistByID(2, new NetworkTaskHandler<Artist>() {
-            @Override
-            public void onReady(Artist result) {
-                Log.d("11111", result.name);
-            }
-        });
-        Artist.GetArtist( new NetworkTaskHandler<List<Artist>>() {
-            @Override
-            public void onReady(List<Artist> result) {
-                for (Artist art : result){
-                    Log.d("22222", art.name);
-                }
-            }
-        });
+        dummyInit();
     }
 
     @Override
@@ -220,28 +194,20 @@ public class MainActivity extends AppCompatActivity implements ArtworkCollection
 
     public void updateImageFlow() {
         if (!needBeaconUpdate) return;
-
-        ArrayList<Artwork> artworks = this.artworkCollection.getArtworks(this.lastArea, 15);
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("artworks", artworks);
-
         fragment = new FragmentNearMe();
-        fragment.setArguments(bundle);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
     }
 
     @Override
-    public void onArtworkRetrievalTaskComplete(ArrayList<Artwork> artworks) {
-        this.artworkCollection.setArtworks(artworks);
-        this.requestLocationAccess();
+    public void onBeaconLocationChange(String beaconId) {
+        this.lastArea = 1 - this.lastArea;
         this.updateImageFlow();
     }
 
-    @Override
-    public void onBeaconLocationChange(String beaconId) {
-        this.lastArea = 1 - this.lastArea;
+    private void dummyInit(){
+        this.requestLocationAccess();
         this.updateImageFlow();
     }
 }

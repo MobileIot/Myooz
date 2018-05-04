@@ -62,7 +62,7 @@ class InfoViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindImage(final Artwork artwork) {
-        String src = artwork.imageUrl;
+        String src = artwork.avatar;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
