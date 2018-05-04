@@ -33,7 +33,7 @@ public class FragmentMyNotes extends Fragment {
 
         final List<Note> data = new ArrayList<Note>();
 
-        Note.GetNoteByArtist("1", new NetworkTaskHandler<List<Note>>() {
+        Note.GetNotesByArtist("1", new NetworkTaskHandler<List<Note>>() {
             @Override
             public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
                 HashMap<String, Note> map = new HashMap<>();

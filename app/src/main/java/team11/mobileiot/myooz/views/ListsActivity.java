@@ -23,7 +23,7 @@ import team11.mobileiot.myooz.models.NetworkTaskHandler;
  * Created by flora on 5/2/18.
  */
 
-public class ActivityLists extends AppCompatActivity {
+public class ListsActivity extends AppCompatActivity {
 
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;

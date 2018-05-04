@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import team11.mobileiot.myooz.R;
@@ -27,11 +26,12 @@ public class FragmentNotes  extends Fragment {
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_note, container, false);
 
-        String artistid=getArguments().getString("artist");
+        String type=getArguments().getString("type");
+        String id=getArguments().getString(type);
 
-        team11.mobileiot.myooz.models.Note.GetNoteByArtist(artistid, new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
+        Note.GetNotesByType(type, id, new NetworkTaskHandler<List<Note>>() {
             @Override
-            public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
+            public void onReady(List<Note> result) {
                 RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                 NoteAdapter adapter = new NoteAdapter(result);

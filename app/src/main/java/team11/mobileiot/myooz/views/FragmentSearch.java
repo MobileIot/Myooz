@@ -41,7 +41,7 @@ public class FragmentSearch extends Fragment{
         artist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(artist.getContext(), ActivityLists.class);
+                Intent intent = new Intent(artist.getContext(), ListsActivity.class);
                 artist.getContext().startActivity(intent);
             }
         });

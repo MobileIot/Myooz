@@ -79,7 +79,8 @@
             />
     </LinearLayout>
     <TextView
-        android:text="@string/view_others_notes"
+        android:id="@+id/view_my_notes"
+        android:text="@string/view_my_notes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_32"

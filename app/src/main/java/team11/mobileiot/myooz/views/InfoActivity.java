@@ -2,35 +2,21 @@ package team11.mobileiot.myooz.views;
 
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PointF;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,37 +70,17 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Change this hard-code part
-        team11.mobileiot.myooz.models.Note.GetNoteByMuseumAndRoom("1", "0", new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
+        Note.GetNotesByArtwork(artwork.id, new NetworkTaskHandler<List<Note>>() {
             @Override
-            public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
-                List<Artwork> parts = new ArrayList<>();
-                for (Note note : result) {
-                    parts.add(new Artwork( ""+note.id, "", "", "", "", "", note.avatar, ""));
-                }
+            public void onReady(List<Note> result) {
                 RecyclerView recyclerView = findViewById(R.id.info_recyclerview);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
-                InfoAdapter adapter = new InfoAdapter(parts);
+                InfoAdapter adapter = new InfoAdapter(result);
                 recyclerView.setAdapter(adapter);
             }
         });
 
-        /*
-        List<Artwork> parts;
-        // TODO: Remove this hard-coded part
-        parts = new ArrayList<>();
-        parts.add(artwork);
-        parts.add(artwork);
-        parts.add(artwork);
-        parts.add(artwork);
-
-        RecyclerView recyclerView = this.findViewById(R.id.info_recyclerview);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
-        InfoAdapter adapter = new InfoAdapter(parts);
-        recyclerView.setAdapter(adapter);
-        */
-
-        ImageView cameraTextView = this.findViewById(R.id.image_camera);
+        final ImageView cameraTextView = this.findViewById(R.id.image_camera);
         cameraTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,12 +90,23 @@ public class InfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        final TextView viewMyNotesTextView = this.findViewById(R.id.view_my_notes);
+        viewMyNotesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(simpleDraweeView.getContext(), ArtworkNoteActivity.class);
+                intent.putExtra("artwork", artwork);
+                simpleDraweeView.getContext().startActivity(intent);
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
+                // TODO: Post captured photo
                 ImageView tempImageView = this.findViewById(R.id.temp_image);
                 tempImageView.setImageBitmap(photo);
             }catch(Exception ee){

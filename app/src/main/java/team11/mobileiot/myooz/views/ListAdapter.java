@@ -67,7 +67,7 @@ class ListViewHolder extends RecyclerView.ViewHolder {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(imageView.getContext(), ActivityArtistNote.class);
+                Intent intent = new Intent(imageView.getContext(), ArtistNoteActivity.class);
                 intent.putExtra("artist", artist);
                 MainActivity.needBeaconUpdate = false;
                 imageView.getContext().startActivity(intent);

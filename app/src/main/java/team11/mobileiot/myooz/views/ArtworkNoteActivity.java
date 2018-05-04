@@ -1,36 +1,44 @@
 package team11.mobileiot.myooz.views;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artist;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
+import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
 
 /**
  * Created by flora on 5/3/18.
  */
 
-public class ActivityArtistNote extends AppCompatActivity {
+public class ArtworkNoteActivity extends AppCompatActivity {
     private Fragment fragment;
     private Bundle arguments;
 
     protected void onCreate(Bundle savedInstanceState) {
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artist_notes);
-        SimpleDraweeView image = findViewById(R.id.artist_note_image);
-        Artist artist = getIntent().getParcelableExtra("artist");
-        image.setImageURI(artist.avatar);
-        TextView name = findViewById(R.id.artist_name);
-        name.setText(artist.name);
+        setContentView(R.layout.activity_artwork_notes);
+        final SimpleDraweeView image = findViewById(R.id.item_simpleDraweeView);
+        Artwork artwork = getIntent().getParcelableExtra("artwork");
+        image.setImageURI(artwork.avatar);
+        final TextView artworkNameTextView = findViewById(R.id.info_title);
+        artworkNameTextView.setText(artwork.name);
+        final TextView artistNameTextView = findViewById(R.id.info_artist);
+        Artist.GetArtistByID(artwork.artist_id, new NetworkTaskHandler<Artist>() {
+            @Override
+            public void onReady(Artist result) {
+                artistNameTextView.setText(result.name);
+            }
+        });
 
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
@@ -74,7 +82,8 @@ public class ActivityArtistNote extends AppCompatActivity {
 
         fragment = new FragmentNotes();
         arguments = new Bundle();
-        arguments.putString("artist", artist.id);
+        arguments.putString("type", "artwork");
+        arguments.putString("artwork", artwork.id);
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, fragment).commit();
     }

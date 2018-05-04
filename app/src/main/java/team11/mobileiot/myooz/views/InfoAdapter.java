@@ -21,11 +21,12 @@ import java.util.List;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artwork;
+import team11.mobileiot.myooz.models.Note;
 
 public class InfoAdapter extends RecyclerView.Adapter<InfoViewHolder> {
-    private List<Artwork> list = null;
+    private List<Note> list = null;
 
-    public InfoAdapter(List<Artwork> list) {
+    public InfoAdapter(List<Note> list) {
         this.list = list;
     }
 
@@ -45,7 +46,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoViewHolder> {
         return list != null ? list.size() : 0;
     }
 
-    public void addAll(Collection<? extends Artwork> collection) {
+    public void addAll(Collection<? extends Note> collection) {
         int size = list.size();
         list.addAll(collection);
         notifyItemRangeChanged(size, collection.size());
@@ -61,8 +62,8 @@ class InfoViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bindImage(final Artwork artwork) {
-        String src = artwork.avatar;
+    public void bindImage(final Note note) {
+        String src = note.avatar;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -76,9 +77,8 @@ class InfoViewHolder extends RecyclerView.ViewHolder {
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(simpleDraweeView.getContext(), InfoActivity.class);
-                intent.putExtra("artwork", artwork);
-                MainActivity.needBeaconUpdate = false;
+                Intent intent = new Intent(simpleDraweeView.getContext(), NoteActivity.class);
+                intent.putExtra("note", note);
                 simpleDraweeView.getContext().startActivity(intent);
             }
         });
