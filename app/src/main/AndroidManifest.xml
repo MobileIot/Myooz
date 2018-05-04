@@ -8,8 +8,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -22,24 +26,30 @@
             android:name=".views.MainActivity"
             android:label="@string/app_name">
             android:theme="@android:style/Theme.NoTitleBar"
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".views.InfoActivity"
             android:label="@string/title_activity_art_info"
             android:theme="@style/AppTheme" />
-        <activity android:name=".views.NewCommentActivity"></activity>
-        <activity android:name=".views.ListsActivity"></activity>
-        <activity android:name=".views.ArtistNoteActivity"></activity>
-        <activity android:name=".views.ArtworkNoteActivity"></activity>
-        <activity android:name=".views.NoteActivity"></activity>
-        <activity android:name=".views.ModifyNoteActivity"></activity>
+        <activity android:name=".views.NewCommentActivity" />
+        <activity android:name=".views.ListsActivity" />
+        <activity android:name=".views.ArtistNoteActivity" />
+        <activity android:name=".views.ArtworkNoteActivity" />
+        <activity android:name=".views.NoteActivity" />
+        <activity android:name=".views.ModifyNoteActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <activity
+            android:name=".views.LoginActivity"
+            android:label="@string/app_name"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

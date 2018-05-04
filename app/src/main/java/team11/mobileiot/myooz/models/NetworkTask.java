@@ -85,9 +85,19 @@ public class NetworkTask extends AsyncTask<String, Void, Object> {
                     osw.write(strings[2]);
                     osw.flush();
                     osw.close();
-                    String message = "{\"message\": \"\"}";
-                    if (con.getResponseCode() != HttpURLConnection.HTTP_OK)
+                    String message = null;
+                    if (con.getResponseCode() != HttpURLConnection.HTTP_OK){
                         message = "{\"message\": \"Failed: " + con.getResponseMessage() + "\"}";
+                    } else {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                        String inputLine;
+                        StringBuilder response = new StringBuilder();
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+                        message = String.valueOf(response);
+                    }
                     result = clazz.getConstructor(String.class).newInstance(message);
                 } catch (Exception e) {
                     e.printStackTrace();
