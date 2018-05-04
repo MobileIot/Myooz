@@ -92,10 +92,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
-    <ImageView
-        android:id="@+id/temp_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
     <TextView
         android:id="@+id/info_content"
         android:text="Context here"

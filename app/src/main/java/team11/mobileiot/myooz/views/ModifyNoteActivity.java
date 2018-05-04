@@ -40,8 +40,24 @@ public class ModifyNoteActivity extends AppCompatActivity {
         final ImageView artworkPic=findViewById(R.id.modifynote_artworkpic);
         final int isnewnote = getIntent().getIntExtra("newNote",0);
         final String artworkid;
-        final HashMap<String, String> map = new HashMap<>();
         final EditText editText = findViewById(R.id.modifynote_text);
+        final RadioGroup radioGroup = findViewById(R.id.radioGroup);
+
+        final Map<String, String> map = new HashMap<>();
+        map.put("is_public", "0");
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int i) {
+                int id = group.getCheckedRadioButtonId();
+                RadioButton chosed = findViewById(id);
+                if (chosed.getText().toString() == "Public") {
+                    map.put("is_public", "1");
+                } else{
+                    map.put("is_public", "0");
+                }
+            }
+        });
+
         if (isnewnote == 0) {
             Note note = getIntent().getParcelableExtra("note");
             new NetworkTask(new NetworkTaskHandler<Bitmap>() {
@@ -55,8 +71,7 @@ public class ModifyNoteActivity extends AppCompatActivity {
         } else {
             Bitmap bitmap = getIntent().getParcelableExtra("pic");
             artworkPic.setImageBitmap(bitmap);
-            artworkid = getIntent().getParcelableExtra("artworkid");
-            editText.setText(getIntent().getStringExtra("content"));
+            artworkid = getIntent().getStringExtra("artwork_id");
         }
 
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
@@ -72,28 +87,31 @@ public class ModifyNoteActivity extends AppCompatActivity {
             }
         });
 
-        Button savebutton=findViewById(R.id.savebutton);
+        final Button savebutton=findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isnewnote==1) {
-
-                    map.put("is_public", "0");
-                    RadioGroup radioGroup = findViewById(R.id.radioGroup);
-                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                if(isnewnote==0) {
+                    Note note = getIntent().getParcelableExtra("note");
+                    Note.UpdateNote(note.artwork_id, editText.getText().toString(), new NetworkTaskHandler<Boolean>() {
                         @Override
-                        public void onCheckedChanged(RadioGroup group, int i) {
-                            int id = group.getCheckedRadioButtonId();
-                            RadioButton chosed = findViewById(id);
-                            if (chosed.getText().toString() == "Public") {
-                                map.put("is_public", "1");
-                            }
+                        public void onReady(Boolean result) {
+                            if (result)
+                                finish();
+                            else
+                                Toast.makeText(ModifyNoteActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    map.put("content", editText.getText().toString());
-                    map.put("artwork_id", artworkid);
                 }else{
-
+                    Note.CreateNote(editText.getText().toString(), artworkid, map.get("is_public"), (Bitmap) getIntent().getParcelableExtra("pic"), new NetworkTaskHandler<Boolean>() {
+                        @Override
+                        public void onReady(Boolean result) {
+                            if (result)
+                                finish();
+                            else
+                                Toast.makeText(ModifyNoteActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });

@@ -4,9 +4,13 @@ import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -53,6 +57,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
 class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView commentText,numkudos,time;
+    private Button reportButton;
     private SimpleDraweeView simpleDraweeView;
 
     public NoteViewHolder(View itemView) {
@@ -61,9 +66,11 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
         simpleDraweeView = itemView.findViewById(R.id.note_image);
         numkudos=itemView.findViewById(R.id.kudosnumber);
         time=itemView.findViewById(R.id.time);
+        reportButton = itemView.findViewById(R.id.comment_report);
     }
 
     public void bindItem(Note src) {
+        final String note_id = src.id;
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
@@ -77,5 +84,40 @@ class NoteViewHolder extends RecyclerView.ViewHolder {
         numkudos.setText("0");
         time.setText("2017-11-17");
         commentText.setText(src.content);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: Improve this one
+                View popView = LayoutInflater.from(view.getContext()).inflate(R.layout.report_window, null);
+                final PopupWindow popupWindow = new PopupWindow(popView, 1000, 1000);
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                popupWindow.setFocusable(true);
+                popupWindow.update();
+                final Button cancelButton = popView.findViewById(R.id.close_button);
+                final Button reportButton = popView.findViewById(R.id.report_button);
+                final EditText reportText = popView.findViewById(R.id.report_text);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                    }
+                });
+                reportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        reportText.setText("We will handle the report within 24 hours. Meanwhile, if you have any concern, please call 230-123-2345");
+                        reportText.setKeyListener(null);
+                        cancelButton.setVisibility(View.INVISIBLE);
+                        reportButton.setText("OK");
+                        reportButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                popupWindow.dismiss();
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 }

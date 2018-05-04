@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -46,21 +47,54 @@ public class NetworkTask extends AsyncTask<String, Void, Object> {
         if (strings.length < 2) return result;
         String method = strings[0];
         String reqUrl = strings[1];
+        URL url = null;
+        HttpURLConnection con = null;
         try {
-            URL url = new URL(BACKEND_URL + reqUrl);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            url = new URL(BACKEND_URL + reqUrl);
+            con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod(method);
             con.setRequestProperty("User-Agent", "Mozilla/5.0");
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            result = clazz.getConstructor(String.class).newInstance(response.toString());
         } catch (Exception e) {
             e.printStackTrace();
+            return result;
+        }
+        switch (method.toUpperCase()) {
+            case "GET":
+            case "DELETE":
+                try {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    StringBuilder response = new StringBuilder();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+                    result = clazz.getConstructor(String.class).newInstance(response.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "POST":
+            case "PUT":
+                if (strings.length < 3) return result;
+                try {
+                    con.setDoOutput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestProperty("Accept", "application/json");
+                    OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream());
+                    osw.write(strings[2]);
+                    osw.flush();
+                    osw.close();
+                    String message = "{\"message\": \"\"}";
+                    if (con.getResponseCode() != HttpURLConnection.HTTP_OK)
+                        message = "{\"message\": \"Failed: " + con.getResponseMessage() + "\"}";
+                    result = clazz.getConstructor(String.class).newInstance(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
         }
         return result;
     }

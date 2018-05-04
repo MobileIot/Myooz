@@ -106,9 +106,11 @@ public class InfoActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-                // TODO: Post captured photo
-                ImageView tempImageView = this.findViewById(R.id.temp_image);
-                tempImageView.setImageBitmap(photo);
+                Intent intent = new Intent(InfoActivity.this, ModifyNoteActivity.class);
+                intent.putExtra("newNote", 1);
+                intent.putExtra("pic", photo);
+                intent.putExtra("artwork_id", artwork.id);
+                InfoActivity.this.startActivity(intent);
             }catch(Exception ee){
                 ee.printStackTrace();
             }

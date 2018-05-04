@@ -2,26 +2,21 @@ package team11.mobileiot.myooz.views;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.PointF;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -30,11 +25,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 
-import java.util.List;
-
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artist;
-import team11.mobileiot.myooz.models.Artwork;
 import team11.mobileiot.myooz.models.NetworkTaskHandler;
 import team11.mobileiot.myooz.models.Note;
 
@@ -52,6 +44,7 @@ public class NoteActivity extends AppCompatActivity {
         final TextView numkudos = this.findViewById(R.id.kudosnumber);
         final TextView profileName = this.findViewById(R.id.profile_name);
         final SimpleDraweeView profileImage = this.findViewById(R.id.profile_image);
+        final Button reportButton = this.findViewById(R.id.comment_report);
 
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
@@ -108,6 +101,41 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: Improve this one
+                View popView = LayoutInflater.from(view.getContext()).inflate(R.layout.report_window, null);
+                final PopupWindow popupWindow = new PopupWindow(popView, 1000, 1000);
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                popupWindow.setFocusable(true);
+                popupWindow.update();
+                final Button cancelButton = popView.findViewById(R.id.close_button);
+                final Button reportButton = popView.findViewById(R.id.report_button);
+                final EditText reportText = popView.findViewById(R.id.report_text);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                    }
+                });
+                reportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        reportText.setText("We will handle the report within 24 hours. Meanwhile, if you have any concern, please call 230-123-2345");
+                        reportText.setKeyListener(null);
+                        cancelButton.setVisibility(View.INVISIBLE);
+                        reportButton.setText("OK");
+                        reportButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                popupWindow.dismiss();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
     }
 }

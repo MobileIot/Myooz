@@ -56,7 +56,7 @@ public class Artist implements Parcelable {
             public void onReady(JSONObject result) {
                 nto.onReady(JSONObject2Artist(result));
             }
-        }).execute("GET", "/artists/" + id, "JSONObject");
+        }).execute("GET", "/artists/" + id);
     }
 
     public static void GetArtist( final NetworkTaskHandler<List<Artist>> nto) {
@@ -65,7 +65,7 @@ public class Artist implements Parcelable {
             public void onReady(JSONArray result) {
                 nto.onReady(JSONArray2ArtistList(result));
             }
-        }).execute("GET", "/artists", "JSONArray");
+        }).execute("GET", "/artists");
     }
 
     private static Artist JSONObject2Artist(JSONObject json) {
