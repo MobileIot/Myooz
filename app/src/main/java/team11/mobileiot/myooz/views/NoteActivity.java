@@ -13,9 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,7 +74,7 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        TopBar topBar = (TopBar) findViewById(R.id.topbar);
+        final TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
             @Override
             public void OnLeftButtonClick() {
@@ -79,8 +83,30 @@ public class NoteActivity extends AppCompatActivity {
 
             @Override
             public void OnRightButtonClick() {
-                // TODO: Show "EDIT"
-                Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(NoteActivity.this, topBar, Gravity.RIGHT);
+                popupMenu.getMenuInflater().inflate(R.menu.note_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch(menuItem.getItemId()){
+                            case R.id.edit_note:
+                                // TODO: Temporarily blocked
+                                if (true) break;
+                                Intent intent = new Intent(NoteActivity.this, ModifyNoteActivity.class);
+                                intent.putExtra("note", note);
+                                NoteActivity.this.startActivity(intent);
+                                break;
+                            case R.id.delete_note:
+                                break;
+                            case R.id.report_note:
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
             }
         });
 

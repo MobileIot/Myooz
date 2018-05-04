@@ -25,5 +25,11 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="view_my_notes">VIEW MY NOTES</string>
+    <string name="note_edit">Edit</string>
+    <string name="note_delete">Delete</string>
+    <string name="note_report">Report</string>
+
+
+
 
 </resources>

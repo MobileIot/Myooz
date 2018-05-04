@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,7 +36,7 @@ public class ModifyNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_note);
         ViewGroup pic=findViewById(R.id.modifynote_artworkpic);
-        final int isnewnote = getIntent().getParcelableExtra("newNote");
+        final int isnewnote = getIntent().getIntExtra("newNote",0);
         final String artworkid;
         final HashMap<String, String> map = new HashMap<>();
         if (isnewnote == 0) {
@@ -46,12 +47,11 @@ public class ModifyNoteActivity extends AppCompatActivity {
             artworkid=note.artwork_id;
 
         } else {
-            byte[] bis = getIntent().getParcelableExtra("pic");
-            Bitmap bitmap= BitmapFactory.decodeByteArray(bis,0,bis.length);
+            Bitmap bitmap = getIntent().getParcelableExtra("pic");
             ImageView imageView=new ImageView(this);
             imageView.setImageBitmap(bitmap);
             pic.addView(imageView);
-            artworkid=getIntent().getParcelableExtra("artworkid");
+            artworkid = getIntent().getParcelableExtra("artworkid");
         }
 
 

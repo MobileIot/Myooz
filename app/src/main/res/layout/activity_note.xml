@@ -19,7 +19,7 @@
         app:rightBackground="@color/right_vert_button"
         app:titleText="Myooz"
         app:titleTextColor="@color/subtitle"
-        app:titleTextSize="8sp" />
+        app:titleTextSize="8sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
