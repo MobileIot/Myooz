@@ -24,6 +24,8 @@ import java.util.Map;
 
 import team11.mobileiot.myooz.R;
 import team11.mobileiot.myooz.models.Artist;
+import team11.mobileiot.myooz.models.NetworkTask;
+import team11.mobileiot.myooz.models.NetworkTaskHandler;
 import team11.mobileiot.myooz.models.Note;
 
 /**
@@ -35,25 +37,27 @@ public class ModifyNoteActivity extends AppCompatActivity {
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_note);
-        ViewGroup pic=findViewById(R.id.modifynote_artworkpic);
+        final ImageView artworkPic=findViewById(R.id.modifynote_artworkpic);
         final int isnewnote = getIntent().getIntExtra("newNote",0);
         final String artworkid;
         final HashMap<String, String> map = new HashMap<>();
+        final EditText editText = findViewById(R.id.modifynote_text);
         if (isnewnote == 0) {
             Note note = getIntent().getParcelableExtra("note");
-            SimpleDraweeView simpleDraweeView=new SimpleDraweeView(this);
-            simpleDraweeView.setImageURI(note.avatar);
-            pic.addView(simpleDraweeView);
-            artworkid=note.artwork_id;
-
+            new NetworkTask(new NetworkTaskHandler<Bitmap>() {
+                @Override
+                public void onReady(Bitmap result) {
+                    artworkPic.setImageBitmap(result);
+                }
+            }).execute(note.avatar);
+            artworkid = note.artwork_id;
+            editText.setText(note.content);
         } else {
             Bitmap bitmap = getIntent().getParcelableExtra("pic");
-            ImageView imageView=new ImageView(this);
-            imageView.setImageBitmap(bitmap);
-            pic.addView(imageView);
+            artworkPic.setImageBitmap(bitmap);
             artworkid = getIntent().getParcelableExtra("artworkid");
+            editText.setText(getIntent().getStringExtra("content"));
         }
-
 
         TopBar topBar = (TopBar) findViewById(R.id.topbar);
         topBar.setOnLeftAndRightClickListener(new TopBar.OnLeftAndRightClickListener() {
@@ -86,10 +90,8 @@ public class ModifyNoteActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    EditText editText = findViewById(R.id.modifynote_text);
                     map.put("content", editText.getText().toString());
                     map.put("artwork_id", artworkid);
-
                 }else{
 
                 }

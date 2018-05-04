@@ -27,7 +27,6 @@
         xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@drawable/lift_on_touch"
         app:cardCornerRadius="@dimen/dp_8"
@@ -39,19 +38,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:orientation="horizontal"
+                android:layout_margin="@dimen/dp_16"
                 android:id="@+id/modifynote_artworkpic">
-
-            </LinearLayout>
+            </ImageView>
 
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_margin="@dimen/dp_16"
                 android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/privatenote"
@@ -72,12 +71,14 @@
             <EditText
                 android:id="@+id/modifynote_text"
                 android:layout_width="match_parent"
-                android:layout_height="227dp" />
+                android:layout_height="227dp"
+                android:layout_margin="@dimen/dp_16"
+                android:gravity="start" />
 
             <Button
                 android:id="@+id/savebutton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Save"
                 android:layout_gravity="bottom"
                 android:background="@color/selected"

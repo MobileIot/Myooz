@@ -90,8 +90,6 @@ public class NoteActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()){
                             case R.id.edit_note:
-                                // TODO: Temporarily blocked
-                                if (true) break;
                                 Intent intent = new Intent(NoteActivity.this, ModifyNoteActivity.class);
                                 intent.putExtra("note", note);
                                 NoteActivity.this.startActivity(intent);
