@@ -63,7 +63,7 @@ public class Note implements Parcelable {
         parcel.writeString(_public);
     }
 
-    public static void GetNotesByID(int id, final NetworkTaskHandler<Note> nto) {
+    public static void GetNotesByID(String id, final NetworkTaskHandler<Note> nto) {
         new NetworkTask(new NetworkTaskHandler<JSONObject>() {
             @Override
             public void onReady(JSONObject result) {
@@ -72,7 +72,7 @@ public class Note implements Parcelable {
         }).execute("GET", "/notes/" + id, "JSONObject");
     }
 
-    public static void GetNoteByMuseumAndRoom(int museum_id, int room_id, final NetworkTaskHandler<List<Note>> nto) {
+    public static void GetNoteByMuseumAndRoom(String museum_id, String room_id, final NetworkTaskHandler<List<Note>> nto) {
         new NetworkTask(new NetworkTaskHandler<JSONArray>() {
             @Override
             public void onReady(JSONArray result) {
@@ -81,7 +81,7 @@ public class Note implements Parcelable {
         }).execute("GET", "/notes?museum_id=" + museum_id + "&room_id=" + room_id, "JSONArray");
     }
 
-    public static void GetNoteByArtist(int artist_id, final NetworkTaskHandler<List<Note>> nto) {
+    public static void GetNoteByArtist(String artist_id, final NetworkTaskHandler<List<Note>> nto) {
         new NetworkTask(new NetworkTaskHandler<JSONArray>() {
             @Override
             public void onReady(JSONArray result) {

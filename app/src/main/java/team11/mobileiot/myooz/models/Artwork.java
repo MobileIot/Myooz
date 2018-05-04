@@ -81,10 +81,10 @@ public class Artwork implements Parcelable {
             public void onReady(JSONObject result) {
                 nto.onReady(JSONObject2Artwork(result));
             }
-        }).execute("GET", "/artwork/" + id, "JSONObject");
+        }).execute("GET", "/artworks/" + id, "JSONObject");
     }
 
-    public static void GetArtworksByMuseumAndRoom(int museum_id, int room_id, final NetworkTaskHandler<List<Artwork>> nto) {
+    public static void GetArtworksByMuseumAndRoom(String museum_id, String room_id, final NetworkTaskHandler<List<Artwork>> nto) {
         new NetworkTask(new NetworkTaskHandler<JSONArray>() {
             @Override
             public void onReady(JSONArray result) {

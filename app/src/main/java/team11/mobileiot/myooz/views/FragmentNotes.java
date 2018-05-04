@@ -27,12 +27,11 @@ public class FragmentNotes  extends Fragment {
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_note, container, false);
 
-        Integer artistid=getArguments().getInt("artist");
+        String artistid=getArguments().getString("artist");
 
         team11.mobileiot.myooz.models.Note.GetNoteByArtist(artistid, new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
             @Override
             public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
-
                 RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
                 NoteAdapter adapter = new NoteAdapter(result);

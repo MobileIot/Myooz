@@ -15,29 +15,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="8dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/note_image"
-            android:layout_width="130dp"
-            android:layout_height="145dp"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="fitXY"
+            fresco:placeholderImage="@drawable/ic_local_activity_black_24dp"
             android:layout_gravity="center"/>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="181dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/artwork_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/inactive"
@@ -46,9 +44,7 @@
             <TextView
                 android:id="@+id/note_content"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/inactive"
@@ -57,3 +53,4 @@
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
+

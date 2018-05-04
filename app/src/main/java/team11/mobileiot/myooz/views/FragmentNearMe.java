@@ -24,7 +24,7 @@ public class FragmentNearMe extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_near_me, container, false);
         final RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        Artwork.GetArtworksByMuseumAndRoom(1, 0, new NetworkTaskHandler<List<Artwork>>() {
+        Artwork.GetArtworksByMuseumAndRoom("1", "0", new NetworkTaskHandler<List<Artwork>>() {
             @Override
             public void onReady(List<Artwork> result) {
                 NearMeAdapter adapter = new NearMeAdapter(result);

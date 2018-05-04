@@ -85,7 +85,7 @@ public class InfoActivity extends AppCompatActivity {
         });
 
         // TODO: Change this hard-code part
-        team11.mobileiot.myooz.models.Note.GetNoteByMuseumAndRoom(1, 0, new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
+        team11.mobileiot.myooz.models.Note.GetNoteByMuseumAndRoom("1", "0", new NetworkTaskHandler<List<team11.mobileiot.myooz.models.Note>>() {
             @Override
             public void onReady(List<team11.mobileiot.myooz.models.Note> result) {
                 List<Artwork> parts = new ArrayList<>();
